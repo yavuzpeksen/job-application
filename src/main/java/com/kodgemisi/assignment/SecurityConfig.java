@@ -22,26 +22,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
       return new BCryptPasswordEncoder();
   }
   
-  @Bean
-  public UserDetailsService userDetailsService() {
-      return super.userDetailsService();
-  }
-  
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-      http
-              .authorizeRequests()
-                  .antMatchers("/public/**","/css/**", "/accesspoint/registration").permitAll()
-                  .anyRequest().authenticated()
-                  .and()
-              .formLogin()
-                  .loginPage("/accesspoint/login")
-                  .loginProcessingUrl("/login")
-                  .defaultSuccessUrl("/success.html", true)
-                  .permitAll()
-                  .and()
-              .logout()
-                  .permitAll();
+  
+  	http.authorizeRequests().antMatchers("/css/**", "/login", "/logout").permitAll();
+  	http.authorizeRequests().antMatchers("/homepage").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
+  	 
+    http.authorizeRequests().antMatchers("/admin").access("hasRole('ROLE_ADMIN')");
+    
+    http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/accesspoint/unauthorized");
+    
+    http.authorizeRequests().and().formLogin()
+            .loginProcessingUrl("/j_spring_security_check")
+            .loginPage("/accesspoint/login")
+            .defaultSuccessUrl("/homepage")
+            .failureUrl("/accesspoint/login?error=true")
+            .usernameParameter("username")
+            .passwordParameter("password")
+            .and().logout().logoutUrl("/accesspoint/logout").logoutSuccessUrl("/logoutSuccessful");
   }
   
   @Autowired
