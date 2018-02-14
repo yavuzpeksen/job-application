@@ -34,7 +34,7 @@
 					<input type="hidden" name="${_csrf.parameterName}"
 					value="${_csrf.token}" />
 					
-	    		Is ilan listenizi silmek icin 'Sil' linkine tiklayin. 
+	    			Is ilan listenizi silmek icin 'Sil' linkine tiklayin. 
 	    		
 					<input type = "submit" value = "Sil" />
 					
@@ -49,9 +49,9 @@
 						<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" />
 						
-			    	Is ilan listeleme sayfasi olusturmak icin Tiklayin. 
+			    		Is ilan listeleme sayfasi olusturmak icin Tiklayin. 
 			    	
-			    	<input type = "submit" value ="Olustur" />
+			    		<input type = "submit" value ="Olustur" />
 			    	</form>
 		    	<!--  <a href="/createJobListing">Olustur.</a> -->
 		    	</c:otherwise>

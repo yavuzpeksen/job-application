@@ -1,11 +1,14 @@
 package com.kodgemisi.assignment.domains;
 
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -16,6 +19,8 @@ public class JobListing {
 	private Long id;
 	
 	private User user;
+
+	private Set<Job> jobs;
 	
 	public void setId(Long id) {
 		this.id = id;
@@ -35,5 +40,14 @@ public class JobListing {
   
 	public void setUser(User user) {
 		this.user = user;
+	}
+	
+	@OneToMany(mappedBy="jobListing", cascade=CascadeType.ALL)
+	public Set<Job> getJobs() {
+		return jobs;
+	}
+
+	public void setJobs(Set<Job> jobs) {
+		this.jobs = jobs;
 	}
 }

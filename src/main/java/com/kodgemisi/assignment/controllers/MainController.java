@@ -59,11 +59,11 @@ public class MainController {
   public String getJobListing(Model model, Principal principal, @RequestParam("id") int id) {
        
     //User loginedUser = (User) ((Authentication) principal).getPrincipal();
-  	System.out.println("Getirilecek id:" + id);
-
+  	//System.out.println("Getirilecek id:" + id);
+  	
     //model.addAttribute("userInfo", userInfo);
        
-    return "adminPage";
+    return "jobListingPage";
   }
   
   @RequestMapping(value = "/deleteJobListing", method = RequestMethod.POST)
