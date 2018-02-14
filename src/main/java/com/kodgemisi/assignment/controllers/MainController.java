@@ -57,10 +57,14 @@ public class MainController {
   public String getJobListing(Model model, Principal principal, @RequestParam("id") int id) {
        
     //User loginedUser = (User) ((Authentication) principal).getPrincipal();
-  	//System.out.println("Getirilecek id:" + id);
   	Set<Job> jobSet = userService.getJobByJobListingId(Long.valueOf(id));
   	
+  	boolean hasJob = false;
+  	if(jobSet != null){
+  		hasJob = true;
+  	}
     model.addAttribute("jobSet", jobSet);
+    model.addAttribute("hasJob", hasJob);
        
     return "jobListingPage";
   }
