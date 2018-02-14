@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -21,15 +22,19 @@
         <th>Job Description</th>
         <th>Number of people</th>
         <th>Last Application Date</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>John</td>
-        <td>Doe</td>
-        <td>john@example.com</td>
-        <td>john@example.com</td>
-      </tr>
+    	<c:forEach items="${jobSet}" var="item" varStatus="st">
+	    	<tr>
+	    		<td>${item.title}</td>
+	    		<td>${item.description}</td>
+	    		<td>${item.hiringPersonNumber}</td>
+	    		<td>${item.lastApplicationDate}</td>
+	    		<td style="text-align:center;"><button type="button" class="btn-danger">Sil</button></td>
+	    	</tr>
+    	</c:forEach>
     </tbody>
   </table>
 </div>

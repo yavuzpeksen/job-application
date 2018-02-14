@@ -5,18 +5,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.kodgemisi.assignment.domains.Job;
 import com.kodgemisi.assignment.domains.JobListing;
 import com.kodgemisi.assignment.interfaces.UserService;
-import com.kodgemisi.assignment.repositories.JobListingRepository;
-import com.kodgemisi.assignment.repositories.UserRepository;
 
 import java.security.Principal;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.ui.Model;
 
 
@@ -60,8 +58,9 @@ public class MainController {
        
     //User loginedUser = (User) ((Authentication) principal).getPrincipal();
   	//System.out.println("Getirilecek id:" + id);
+  	Set<Job> jobSet = userService.getJobByJobListingId(Long.valueOf(id));
   	
-    //model.addAttribute("userInfo", userInfo);
+    model.addAttribute("jobSet", jobSet);
        
     return "jobListingPage";
   }
