@@ -16,10 +16,44 @@
  
 	    	<c:choose>
 	    		<c:when test="${jobListingId > 0}">
-	    		Is ilan olusturma sayfaniza gitmek icin Tiklayin. <a href="/getJobListing?id=<c:out value="${jobListingId}"/>" >Git</a>
+	    			
+	    		<form action="/getJobListing" method="POST">
+					<input type="hidden" name="id" value="<c:out value="${jobListingId}"/>" /> 
+					<input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}" />
+	    		
+	    		Is ilan olusturma sayfaniza gitmek icin Tiklayin. 
+	    		
+					<input type = "submit" value = "Git" />
+					
+				</form>
+	    		<!--  <a href="/getJobListing?id=<c:out value="${jobListingId}"/>" >Git</a> -->
+	    		<br>
+	    		<form action="/deleteJobListing" method="POST">
+					<input type="hidden" name="id" value="<c:out value="${jobListingId}"/>" /> 
+					<input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}" />
+					
+	    		Is ilan listenizi silmek icin 'Sil' linkine tiklayin. 
+	    		
+					<input type = "submit" value = "Sil" />
+					
+				</form>
+	    		
+	    		<!--  <a href="/deleteJobListing">Sil</a> -->
+	    		
 	    		</c:when>
 	    		<c:otherwise>
-		    	Job listeleme sayfasi olusturmak icin Tiklayin. <a href="/createJobListing">Olustur.</a>
+		    		<form action="/createJobListing" method="GET">
+						<input type="hidden" name="id" value="<c:out value="${jobListingId}"/>" /> 
+						<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" />
+						
+			    	Is ilan listeleme sayfasi olusturmak icin Tiklayin. 
+			    	
+			    	<input type = "submit" value ="Olustur" />
+			    	</form>
+		    	<!--  <a href="/createJobListing">Olustur.</a> -->
 		    	</c:otherwise>
 	    	</c:choose>
     	</c:when>

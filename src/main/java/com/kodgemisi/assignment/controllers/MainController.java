@@ -49,20 +49,40 @@ public class MainController {
       	
       }
       
-      
-      
       String name = loginedUser.getUsername();
       model.addAttribute("username",name);
       model.addAttribute("isAdmin",isAdmin);
       model.addAttribute("jobListingId",jobListingId);
       return "homepage";
   }
-  @RequestMapping(value = "/getJobListing", method = RequestMethod.GET)
-  public String adminPage(Model model, Principal principal, @RequestParam("id") int id) {
+  @RequestMapping(value = "/getJobListing", method = RequestMethod.POST)
+  public String getJobListing(Model model, Principal principal, @RequestParam("id") int id) {
+       
+    //User loginedUser = (User) ((Authentication) principal).getPrincipal();
+  	System.out.println("Getirilecek id:" + id);
+
+    //model.addAttribute("userInfo", userInfo);
+       
+    return "adminPage";
+  }
+  
+  @RequestMapping(value = "/deleteJobListing", method = RequestMethod.POST)
+  public String deleteJobListing(Model model, Principal principal, @RequestParam("id") int id) {
        
       //User loginedUser = (User) ((Authentication) principal).getPrincipal();
 		System.out.println("Getirilecek id:" + id);
 
+      //model.addAttribute("userInfo", userInfo);
+       
+      return "adminPage";
+  }
+  
+  @RequestMapping(value = "/createJobListing", method = RequestMethod.GET)
+  public String createJobListing(Model model, Principal principal) {
+       
+    //User loginedUser = (User) ((Authentication) principal).getPrincipal();
+		//System.out.println("Getirilecek id:" + id);
+  	System.out.println("Job Listing yaratilacak.");
       //model.addAttribute("userInfo", userInfo);
        
       return "adminPage";
