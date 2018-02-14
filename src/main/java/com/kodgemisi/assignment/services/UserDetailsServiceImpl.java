@@ -12,8 +12,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kodgemisi.assignment.domains.JobListing;
 import com.kodgemisi.assignment.domains.Role;
 import com.kodgemisi.assignment.domains.User;
+import com.kodgemisi.assignment.repositories.JobListingRepository;
 import com.kodgemisi.assignment.repositories.UserRepository;
 
 @Service

@@ -7,14 +7,29 @@
 <title>Job Application</title>
 </head>
 <body>
-	
-	<h1>Kullanici giris sayfasi</h1>   
-    
-    Anasayfaya hosgeldin <c:out value = "${username}"/>
-    
-    <a href="accesspoint/logout">
-    
-    <br><br><b>Cikis</b></a>   
+	    
+    Anasayfaya hosgeldin <c:out value = "${username}"/>,
+    <br><br>
+    <c:choose>
+    	<c:when test="${isAdmin}">
+    	
+ 
+	    	<c:choose>
+	    		<c:when test="${jobListingId > 0}">
+	    		Is ilan olusturma sayfaniza gitmek icin Tiklayin. <a href="/getJobListing?id=<c:out value="${jobListingId}"/>" >Git</a>
+	    		</c:when>
+	    		<c:otherwise>
+		    	Job listeleme sayfasi olusturmak icin Tiklayin. <a href="/createJobListing">Olustur.</a>
+		    	</c:otherwise>
+	    	</c:choose>
+    	</c:when>
+    	
+    	<c:otherwise>
+    	Butun is ilanlari listeleniyor.
+    	</c:otherwise>
+    </c:choose>
+    <br>
+    <a href="accesspoint/logout">Cikis</a>   
 
 </body>
 </html>
