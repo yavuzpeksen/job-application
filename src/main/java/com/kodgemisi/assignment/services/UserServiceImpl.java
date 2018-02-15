@@ -42,7 +42,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void addJob(int id, String title, String description, int numOfPerson, Date lastDate) {
-		//jobRepository.addJob(id, title, description, numOfPerson, lastDate);
 		
 		Job currentJob = new Job();
 		JobListing currJobListing = new JobListing();
