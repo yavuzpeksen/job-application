@@ -44,7 +44,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
   
   @Autowired
   public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-      auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
+  	auth.inMemoryAuthentication().withUser("deneme").password("abc").roles("USER");
+    auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
   }
   
 }

@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kodgemisi.assignment.domains.Job;
 import com.kodgemisi.assignment.domains.JobListing;
@@ -56,6 +57,8 @@ public class MainController {
   @RequestMapping(value = "/getJobListing", method = RequestMethod.POST)
   public String getJobListing(Model model, Principal principal, @RequestParam("id") int id) {
        
+  	
+  	System.out.println("Method cagrildi. id:" + id);
     //User loginedUser = (User) ((Authentication) principal).getPrincipal();
   	Set<Job> jobSet = userService.getJobByJobListingId(Long.valueOf(id));
   	
@@ -65,6 +68,7 @@ public class MainController {
   	}
     model.addAttribute("jobSet", jobSet);
     model.addAttribute("hasJob", hasJob);
+    model.addAttribute("jobListingId",id);
        
     return "jobListingPage";
   }
@@ -89,6 +93,25 @@ public class MainController {
       //model.addAttribute("userInfo", userInfo);
        
       return "adminPage";
+  }
+  
+  @RequestMapping(value = "/createJobPost", method = RequestMethod.POST)
+  @ResponseBody
+  public String createJobPost(Model model, Principal principal, @RequestParam("id") int id) {
+       
+    //User loginedUser = (User) ((Authentication) principal).getPrincipal();
+  	Set<Job> jobSet = userService.getJobByJobListingId(Long.valueOf(id));
+  	
+  	boolean hasJob = false;
+  	if(jobSet != null){
+  		hasJob = true;
+  	}
+    model.addAttribute("jobSet", jobSet);
+    model.addAttribute("hasJob", hasJob);
+    
+    String result = "{\"success\":1}";
+       
+    return result;
   }
   
   @RequestMapping(value = "/logoutSuccessful", method = RequestMethod.GET)

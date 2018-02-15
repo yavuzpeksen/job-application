@@ -55,7 +55,7 @@
   <h2>Add Job Post</h2>
   
   <div style="background:#e4e4e4; height:220px; padding-top:20px;">
-  <form>
+  <form action="/createJobPost" method="POST">
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="inputEmail4">Job Title</label>
@@ -83,7 +83,9 @@
 		<button style="float: right;" type="submit" class="btn btn-primary">Create</button>
     </div>
   </div>
-    
+  <input type="hidden" name="id" value="<c:out value="${jobListingId}"/>" /> 
+  <input type="hidden" name="${_csrf.parameterName}"
+  value="${_csrf.token}" />
   </form>
   </div>
 
