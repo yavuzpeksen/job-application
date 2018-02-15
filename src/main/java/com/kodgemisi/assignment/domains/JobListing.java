@@ -32,7 +32,7 @@ public class JobListing {
 		return id;
 	}
 	
-  @OneToOne(cascade = CascadeType.ALL)
+  @OneToOne
   @JoinColumn(name = "user_id")
   public User getUser() {
       return user;

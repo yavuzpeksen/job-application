@@ -3,17 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Job Application</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<title>Kod Gemisi</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
 	    
-    Anasayfaya hosgeldin <c:out value = "${username}"/>,
+    <h2>Anasayfaya hosgeldin <c:out value = "${username}"/>, </h2>
     <br><br>
     <c:choose>
-    	<c:when test="${isAdmin}">
-    	
- 
+    	<c:when test="${isAdmin}"> 
 	    	<c:choose>
 	    		<c:when test="${jobListingId > 0}">
 	    			
@@ -22,36 +21,35 @@
 					<input type="hidden" name="${_csrf.parameterName}"
 					value="${_csrf.token}" />
 	    		
-	    		Is ilan olusturma sayfaniza gitmek icin Tiklayin. 
-	    		
-					<input type = "submit" value = "Git" />
+	    			<p style="float:left;">Is ilan olusturma sayfaniza gitmek icin tiklayin. </p> 
+					<input type = "submit" class="btn-primary" value = "Git" />
 					
 				</form>
+				<br>
 	    		<!--  <a href="/getJobListing?id=<c:out value="${jobListingId}"/>" >Git</a> -->
-	    		<br>
+
 	    		<form action="/deleteJobListing" method="POST">
 					<input type="hidden" name="id" value="<c:out value="${jobListingId}"/>" /> 
 					<input type="hidden" name="${_csrf.parameterName}"
 					value="${_csrf.token}" />
 					
-	    			Is ilan listenizi silmek icin 'Sil' linkine tiklayin. 
+	    			<p style="float:left;">Is ilan listenizi silmek icin tiklayin. </p>
 	    		
-					<input type = "submit" value = "Sil" />
+					<input type = "submit" class="btn-danger" value = "Sil" />
 					
 				</form>
-	    		
 	    		<!--  <a href="/deleteJobListing">Sil</a> -->
 	    		
 	    		</c:when>
 	    		<c:otherwise>
-		    		<form action="/createJobListing" method="GET">
+		    		<form id = "createJobListingForm">
 						<input type="hidden" name="id" value="<c:out value="${jobListingId}"/>" /> 
 						<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" />
 						
-			    		Is ilan listeleme sayfasi olusturmak icin Tiklayin. 
-			    	
-			    		<input type = "submit" value ="Olustur" />
+			    		<p style="float:left;">Is ilan listeleme sayfasi olusturmak icin tiklayin. </p>
+			    		
+			    		<button id="submitBtn" type = "submit" class="btn-primary">Create</button>
 			    	</form>
 		    	<!--  <a href="/createJobListing">Olustur.</a> -->
 		    	</c:otherwise>
@@ -59,11 +57,69 @@
     	</c:when>
     	
     	<c:otherwise>
-    	Butun is ilanlari listeleniyor.
+    		<div class="container">
+    		<h2>Job Post List</h2>
+    		  <c:choose>
+	  				<c:when test="${hasJob}">
+			    	  	<table class="table table-bordered">
+					    <thead>
+					      <tr>
+					        <th>Job Title</th>
+					        <th>Job Description</th>
+					        <th>Number of people</th>
+					        <th>Last Application Date</th>
+					        <th>Details</th>
+					      </tr>
+					    </thead>
+					    <tbody>
+					    	<c:forEach items="${jobList}" var="item" varStatus="st">
+						    	<tr>
+						    		<td>${item.title}</td>
+						    		<td>${item.description}</td>
+						    		<td>${item.hiringPersonNumber}</td>
+						    		<td><fmt:formatDate pattern="dd-MM-yyyy" value="${item.lastApplicationDate}" /></td>
+						    		<td><a href="/jobDetailPage">Link</a></td>
+						    	</tr>
+					    	</c:forEach>
+					    </tbody>
+					  </table>
+			  		</c:when>
+    		<c:otherwise>
+			    <h4> There is no job post.</h4>
+			</c:otherwise>
+			</c:choose>
+		  </div>
     	</c:otherwise>
     </c:choose>
     <br>
     <a href="accesspoint/logout">Cikis</a>   
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function(){
+	
+	$("#submitBtn").click(function(){
+		event.preventDefault();
+		$.ajax({
+		    type: "GET",
+		    url: "/createJobListing",
+		    data: $('#createJobListingForm').serialize(),
+		    dataType: "json",
+		    success: function(data) {
+		    	if(data.status == 1){
+		    		location.reload(); 		
+		    	}
+		    },
+		   error: function() {
+		        //$("#commentList").append($("#name").val() + "<br/>" + $("#body").val());
+		       alert("There was an error submitting comment");
+		   }
+			
+		});
+	});
+
+});
+</script>
 </body>
 </html>

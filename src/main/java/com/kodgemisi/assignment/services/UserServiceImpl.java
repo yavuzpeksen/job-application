@@ -1,17 +1,19 @@
 package com.kodgemisi.assignment.services;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.kodgemisi.assignment.domains.Job;
 import com.kodgemisi.assignment.domains.JobListing;
+import com.kodgemisi.assignment.domains.User;
 import com.kodgemisi.assignment.interfaces.UserService;
 import com.kodgemisi.assignment.repositories.JobListingRepository;
 import com.kodgemisi.assignment.repositories.JobRepository;
+import com.kodgemisi.assignment.repositories.UserRepository;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -21,6 +23,9 @@ public class UserServiceImpl implements UserService {
   
   @Autowired
   private JobRepository jobRepository;
+  
+  @Autowired
+  private UserRepository userRepository;
 
 	public UserServiceImpl(JobListingRepository jlRepository) {
 		this.jlRepository = jlRepository;
@@ -58,6 +63,34 @@ public class UserServiceImpl implements UserService {
 		
 		jobRepository.delete(Long.valueOf(postId));		
 		
+	}
+
+	@Override
+	public List<Job> getAllJobs() {
+		List<Job> jobSet = jobRepository.findAll();
+		return jobSet;
+	}
+
+	@Override
+	public void createJobListing(Long id) {
+		
+		JobListing jobListing = new JobListing();
+		User user = new User();
+		user.setId(id);	
+		jobListing.setUser(user);
+		jlRepository.save(jobListing);
+	}
+
+	@Override
+	public void deleteJobListing() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Long getUserIdByEmail(String email) {
+		User user = userRepository.findByEmail(email);
+		return user.getId();
 	}
 
 }

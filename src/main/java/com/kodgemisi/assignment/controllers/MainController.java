@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,12 +46,19 @@ public class MainController {
       	}else{
       		jobListingId = jl.getId();
       		//System.out.println("Is ilan olusturma sayfaniza gitmek icin tiklayin. JL:" +jl.getId());
-      		
       	}
-      	//USER id ye gore arama yap, tabloda varsa link ver. 
-      	//
-      }else{
-      	
+      }else{	
+      	List<Job> jobList = userService.getAllJobs();
+      	boolean hasJob = false;
+      	if(jobList != null){
+      		if(jobList.size() != 0){
+        		hasJob = true;
+      		}
+      	}
+      		
+      	//Butun job postlar getirilecek..
+      	model.addAttribute("jobList", jobList);
+      	model.addAttribute("hasJob", hasJob);
       }
       
       String name = loginedUser.getUsername();
@@ -68,8 +76,10 @@ public class MainController {
   	Set<Job> jobSet = userService.getJobByJobListingId(Long.valueOf(id));
   	
   	boolean hasJob = false;
-  	if(jobSet != null){
-  		hasJob = true;
+  	if(jobSet != null ){
+  		if(jobSet.size() != 0){
+    		hasJob = true;
+  		}
   	}
     model.addAttribute("jobSet", jobSet);
     model.addAttribute("hasJob", hasJob);
@@ -90,21 +100,25 @@ public class MainController {
   }
   
   @RequestMapping(value = "/createJobListing", method = RequestMethod.GET)
+  @ResponseBody
   public String createJobListing(Model model, Principal principal) {
        
     //User loginedUser = (User) ((Authentication) principal).getPrincipal();
 		//System.out.println("Getirilecek id:" + id);
   	System.out.println("Job Listing yaratilacak.");
-      //model.addAttribute("userInfo", userInfo);
-       
-      return "adminPage";
+  	User loginedUser = (User) ((Authentication) principal).getPrincipal();
+  	Long userId = userService.getUserIdByEmail(loginedUser.getUsername());
+  	userService.createJobListing(userId);
+  	
+  	String result = "{\"status\":1}";
+  	
+  	return result;
   }
   
   @RequestMapping(value = "/createJobPost", method = RequestMethod.POST)
   @ResponseBody
   public String createJobPost(Model model, Principal principal, @RequestParam("title") String title, @RequestParam("description") String description, @RequestParam("numOfPerson") int numOfPerson, @RequestParam("lastDate") String lastDate, @RequestParam("id") int id) {
        
-    //User loginedUser = (User) ((Authentication) principal).getPrincipal();  	
   	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
   	Date dateObj = null;  	
     String result = "{\"status\":1}";
@@ -127,8 +141,7 @@ public class MainController {
        
     String result = "{\"status\":1}";
   	userService.deleteJob(postId);
-    //System.out.println("Delete post id:" + postId);
-          
+  	
     return result;
   }
   
