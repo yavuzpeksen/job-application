@@ -39,7 +39,7 @@
 	    		<td><fmt:formatDate pattern="dd-MM-yyyy" value="${item.lastApplicationDate}" /></td>
 	    		<td><a href="/jobDetailPage">Link</a></td>
 	    		
-	    		<td style="text-align:center;"><button type="button" class="btn-danger">Delete</button></td>
+	    		<td style="text-align:center;"><button data-postid = "${item.id}"type="button" class="btn-danger delete">Delete</button></td>
 	    	</tr>
     	</c:forEach>
     </tbody>
@@ -95,6 +95,38 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
+	
+	$( ".delete" ).each(function(index) {
+	    $(this).on("click", function(){
+	        var postId = $(this).data('postid');
+	        
+			event.preventDefault();
+			var data = {
+				postid: postId,
+				${_csrf.parameterName}:'<c:out value="${_csrf.token}"/>'
+			}
+			$.ajax({
+			    type: "POST",
+			    url: "/deleteJobPost",
+			    data: data,
+			    dataType: "json",
+			    success: function(data) {
+			    	if(data.status == 1){
+			    		alert('Successfully deleted');
+			    		location.reload();
+			    	}else{
+			    		alert('Error');
+			    	}
+			    },
+			   error: function() {
+			        //$("#commentList").append($("#name").val() + "<br/>" + $("#body").val());
+			       alert("There was an error submitting comment");
+			   }
+				
+			});
+	        
+	    });
+	});
 	
 	$("#submitBtn").click(function(){
 		event.preventDefault();

@@ -121,6 +121,17 @@ public class MainController {
     return result;
   }
   
+  @RequestMapping(value = "/deleteJobPost", method = RequestMethod.POST)
+  @ResponseBody
+  public String deleteJobPost(Model model, Principal principal, @RequestParam("postid") int postId) {
+       
+    String result = "{\"status\":1}";
+  	userService.deleteJob(postId);
+    //System.out.println("Delete post id:" + postId);
+          
+    return result;
+  }
+  
   @RequestMapping(value = "/logoutSuccessful", method = RequestMethod.GET)
   public String logoutSuccessfulPage(Model model) {
       model.addAttribute("title", "Logout");

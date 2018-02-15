@@ -13,5 +13,7 @@ public interface UserService {
 	public Set<Job> getJobByJobListingId(Long id);
 	
 	public void addJob(int id, String title, String description, int numOfPerson, Date lastDate);
+	
+	public void deleteJob(int postId);
 
 }

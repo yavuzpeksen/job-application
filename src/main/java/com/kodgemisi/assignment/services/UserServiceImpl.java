@@ -1,8 +1,6 @@
 package com.kodgemisi.assignment.services;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +51,13 @@ public class UserServiceImpl implements UserService {
 		currentJob.setHiringPersonNumber(numOfPerson);
 		currentJob.setLastApplicationDate(lastDate);
 		jobRepository.save(currentJob);
+	}
+
+	@Override
+	public void deleteJob(int postId) {
+		
+		jobRepository.delete(Long.valueOf(postId));		
+		
 	}
 
 }
