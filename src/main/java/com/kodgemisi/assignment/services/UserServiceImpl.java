@@ -1,5 +1,6 @@
 package com.kodgemisi.assignment.services;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -38,5 +39,21 @@ public class UserServiceImpl implements UserService {
 		Set<Job> jobSet = jobRepository.getJobByJobListingId(id);
 		return jobSet;
   }
+
+	@Override
+	public void addJob(int id, String title, String description, int numOfPerson, Date lastDate) {
+		//jobRepository.addJob(id, title, description, numOfPerson, lastDate);
+		
+		Job currentJob = new Job();
+		JobListing currJobListing = new JobListing();
+		
+		currJobListing.setId(Long.valueOf(id));
+		currentJob.setJobListing(currJobListing);
+		currentJob.setTitle(title);
+		currentJob.setDescription(description);
+		currentJob.setHiringPersonNumber(numOfPerson);
+		currentJob.setLastApplicationDate(lastDate);
+		jobRepository.save(currentJob);
+	}
 
 }

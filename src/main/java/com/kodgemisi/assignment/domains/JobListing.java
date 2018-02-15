@@ -16,7 +16,7 @@ import javax.persistence.Table;
 @Table(name="JOB_LISTING")
 public class JobListing {
 
-	private Long id;
+	private long id;
 	
 	private User user;
 

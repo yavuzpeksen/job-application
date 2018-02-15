@@ -28,7 +28,7 @@ public class Job {
 	@Column(name="hiring_person_number")
 	private int hiringPersonNumber;
 	
-	@Column(name = "last_application_date", columnDefinition="DATETIME")
+	@Column(name = "last_application_date", columnDefinition="TIMESTAMP")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date lastApplicationDate;
 

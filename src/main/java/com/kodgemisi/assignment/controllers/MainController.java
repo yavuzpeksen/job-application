@@ -11,6 +11,11 @@ import com.kodgemisi.assignment.domains.JobListing;
 import com.kodgemisi.assignment.interfaces.UserService;
 
 import java.security.Principal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,7 +63,7 @@ public class MainController {
   public String getJobListing(Model model, Principal principal, @RequestParam("id") int id) {
        
   	
-  	System.out.println("Method cagrildi. id:" + id);
+  	System.out.println("GetJobListing method cagrildi. id:" + id);
     //User loginedUser = (User) ((Authentication) principal).getPrincipal();
   	Set<Job> jobSet = userService.getJobByJobListingId(Long.valueOf(id));
   	
@@ -97,20 +102,22 @@ public class MainController {
   
   @RequestMapping(value = "/createJobPost", method = RequestMethod.POST)
   @ResponseBody
-  public String createJobPost(Model model, Principal principal, @RequestParam("id") int id) {
+  public String createJobPost(Model model, Principal principal, @RequestParam("title") String title, @RequestParam("description") String description, @RequestParam("numOfPerson") int numOfPerson, @RequestParam("lastDate") String lastDate, @RequestParam("id") int id) {
        
-    //User loginedUser = (User) ((Authentication) principal).getPrincipal();
-  	Set<Job> jobSet = userService.getJobByJobListingId(Long.valueOf(id));
+    //User loginedUser = (User) ((Authentication) principal).getPrincipal();  	
+  	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+  	Date dateObj = null;  	
+    String result = "{\"status\":1}";
+
+		try {
+			dateObj = format.parse(lastDate);
+		} catch (ParseException e) {
+			result = "{\"status\":0}";
+			return result;
+		}
   	
-  	boolean hasJob = false;
-  	if(jobSet != null){
-  		hasJob = true;
-  	}
-    model.addAttribute("jobSet", jobSet);
-    model.addAttribute("hasJob", hasJob);
-    
-    String result = "{\"success\":1}";
-       
+  	userService.addJob(id, title, description, numOfPerson, dateObj);
+          
     return result;
   }
   

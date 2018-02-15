@@ -55,32 +55,32 @@
   <h2>Add Job Post</h2>
   
   <div style="background:#e4e4e4; height:220px; padding-top:20px;">
-  <form action="/createJobPost" method="POST">
+  <form id="createJobPostForm">
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="inputEmail4">Job Title</label>
-      <input type="text" class="form-control" id="title">
+      <input type="text" class="form-control" name="title">
     </div>
     <div class="form-group col-md-6">
      <label for="inputAddress">Number of person to hire</label>
-     <input type="number" class="form-control" id="HiringPersonNumber">
+     <input type="number" class="form-control" name="numOfPerson">
     </div>
   </div>
   <div class="form-row">
 	<div class="form-group col-md-6">
 	<label for="inputDescription">Job Description</label>
-	<input type="text" class="form-control" id="description">
+	<input type="text" class="form-control" name="description">
 	</div>
 	<div class="form-group col-md-6">
 	<label for="inputDate">Select date</label>
-	<input type="date" class="form-control" id="lastDate">
+	<input type="date" class="form-control" name="lastDate">
 	</div>
   </div>
   <div class="form-row">
     <div class="form-group col-md-10">
     </div>
     <div class="form-group col-md-2">
-		<button style="float: right;" type="submit" class="btn btn-primary">Create</button>
+		<button id="submitBtn" style="float: right;" type="submit" class="btn btn-primary">Create</button>
     </div>
   </div>
   <input type="hidden" name="id" value="<c:out value="${jobListingId}"/>" /> 
@@ -90,6 +90,37 @@
   </div>
 
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function(){
+	
+	$("#submitBtn").click(function(){
+		event.preventDefault();
+		$.ajax({
+		    type: "POST",
+		    url: "/createJobPost",
+		    data: $('#createJobPostForm').serialize(),
+		    dataType: "json",
+		    success: function(data) {
+		    	if(data.status == 1){
+		    		alert('Successfully added');
+		    		location.reload();
+		    	}else{
+		    		alert('Error');
+		    	}
+		    },
+		   error: function() {
+		        //$("#commentList").append($("#name").val() + "<br/>" + $("#body").val());
+		       alert("There was an error submitting comment");
+		   }
+			
+		});
+	});
+
+});
+</script>
 
 </body>
 </html>
