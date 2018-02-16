@@ -1,4 +1,4 @@
-This is a Spring Boot project built for the assignment given by Kod Gemisi. Development took 4 days until 25 commits.
+This is a Spring Boot project built for the assignment given by Kod Gemisi. Development took 4 days until 19 commits.
 There is a server (MySql) running on the OS.  
 On the website
  - User can login and logout from the system
