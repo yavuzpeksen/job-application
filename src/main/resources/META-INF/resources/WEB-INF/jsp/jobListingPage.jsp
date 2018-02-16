@@ -37,7 +37,7 @@
 	    		<td>${item.description}</td>
 	    		<td>${item.hiringPersonNumber}</td>
 	    		<td><fmt:formatDate pattern="dd-MM-yyyy" value="${item.lastApplicationDate}" /></td>
-	    		<td><a href="/jobDetailPage">Link</a></td>
+	    		<td><a href="/getJobDetailPage?postid=${item.id}">Link</a></td>
 	    		
 	    		<td style="text-align:center;"><button data-postid = "${item.id}"type="button" class="btn-danger delete">Delete</button></td>
 	    	</tr>

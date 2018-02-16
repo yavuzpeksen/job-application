@@ -67,6 +67,12 @@ public class MainController {
       model.addAttribute("jobListingId",jobListingId);
       return "homepage";
   }
+  @RequestMapping(value = "/getJobDetailPage", method = RequestMethod.GET)
+  public String getJobDetailPage(Model model, Principal principal, @RequestParam("postid") int id) {
+       
+    return "jobDetailPage";
+  }
+  
   @RequestMapping(value = "/getJobListing", method = RequestMethod.POST)
   public String getJobListing(Model model, Principal principal, @RequestParam("id") int id) {
        
@@ -89,14 +95,14 @@ public class MainController {
   }
   
   @RequestMapping(value = "/deleteJobListing", method = RequestMethod.POST)
+  @ResponseBody
   public String deleteJobListing(Model model, Principal principal, @RequestParam("id") int id) {
        
       //User loginedUser = (User) ((Authentication) principal).getPrincipal();
-		System.out.println("Getirilecek id:" + id);
-
-      //model.addAttribute("userInfo", userInfo);
-       
-      return "adminPage";
+		userService.deleteJobListing(id);
+		String result = "{\"status\":1}";
+		
+		return result;
   }
   
   @RequestMapping(value = "/createJobListing", method = RequestMethod.GET)

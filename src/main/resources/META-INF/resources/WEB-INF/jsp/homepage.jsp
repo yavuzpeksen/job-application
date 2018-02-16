@@ -33,9 +33,9 @@
 					<input type="hidden" name="${_csrf.parameterName}"
 					value="${_csrf.token}" />
 					
-	    			<p style="float:left;">Is ilan listenizi silmek icin tiklayin. </p>
+	    			<p style="float:left;">Is ilan listenizin hepsini silmek icin tiklayin. </p>
 	    		
-					<input type = "submit" class="btn-danger" value = "Sil" />
+					<button id="deleteBtn" type = "submit" class="btn-danger">Delete</button>
 					
 				</form>
 	    		<!--  <a href="/deleteJobListing">Sil</a> -->
@@ -78,7 +78,7 @@
 						    		<td>${item.description}</td>
 						    		<td>${item.hiringPersonNumber}</td>
 						    		<td><fmt:formatDate pattern="dd-MM-yyyy" value="${item.lastApplicationDate}" /></td>
-						    		<td><a href="/jobDetailPage">Link</a></td>
+						    		<td><a href="/getJobDetailPage?postid=${item.id}">Link</a></td>
 						    	</tr>
 					    	</c:forEach>
 					    </tbody>
@@ -108,6 +108,32 @@ $(document).ready(function(){
 		    dataType: "json",
 		    success: function(data) {
 		    	if(data.status == 1){
+		    		alert("Job list successfully created");
+		    		location.reload(); 		
+		    	}
+		    },
+		   error: function() {
+		        //$("#commentList").append($("#name").val() + "<br/>" + $("#body").val());
+		       alert("There was an error submitting comment");
+		   }
+			
+		});
+	});
+	
+	$("#deleteBtn").click(function(){
+		event.preventDefault();
+		var data = {
+			id: ${jobListingId},
+			${_csrf.parameterName}:'<c:out value="${_csrf.token}"/>'
+		}
+		$.ajax({
+		    type: "POST",
+		    url: "/deleteJobListing",
+		    data: data,
+		    dataType: "json",
+		    success: function(data) {
+		    	if(data.status == 1){
+		    		alert("Job list successfully deleted")
 		    		location.reload(); 		
 		    	}
 		    },

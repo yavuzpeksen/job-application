@@ -18,7 +18,7 @@ public interface UserService {
 	
 	public void createJobListing(Long id);
 	
-	public void deleteJobListing();
+	public void deleteJobListing(int id);
 	
 	public List<Job> getAllJobs();
 	

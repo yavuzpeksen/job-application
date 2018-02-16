@@ -82,9 +82,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void deleteJobListing() {
-		// TODO Auto-generated method stub
-		
+	public void deleteJobListing(int id) {
+		jobRepository.deleteJobsByJobListingId(Long.valueOf(id));
 	}
 
 	@Override
