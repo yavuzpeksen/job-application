@@ -21,7 +21,7 @@ public class LoginController {
   public String loginGetPage(Model model, String error, String logout, HttpServletRequest request) {
 		
       if (error != null)
-          model.addAttribute("error", "Giris basarisiz.");
+          model.addAttribute("error", "Login unsuccessful");
 
       return "login";
   }

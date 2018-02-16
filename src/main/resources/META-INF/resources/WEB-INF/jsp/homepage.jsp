@@ -9,7 +9,7 @@
 </head>
 <body>
 	    
-    <h2>Anasayfaya hosgeldin <c:out value = "${username}"/>, </h2>
+    <h2>Welcome to the homepage <c:out value = "${username}"/>, </h2>
     <br><br>
     <c:choose>
     	<c:when test="${isAdmin}"> 
@@ -21,8 +21,8 @@
 					<input type="hidden" name="${_csrf.parameterName}"
 					value="${_csrf.token}" />
 	    		
-	    			<p style="float:left;">Is ilan olusturma sayfaniza gitmek icin tiklayin. </p> 
-					<input type = "submit" class="btn-primary" value = "Git" />
+	    			<p style="float:left;">Click the button to the list page of your job posts </p> 
+					<input type = "submit" class="btn-primary" value = "List" />
 					
 				</form>
 				<br>
@@ -33,7 +33,7 @@
 					<input type="hidden" name="${_csrf.parameterName}"
 					value="${_csrf.token}" />
 					
-	    			<p style="float:left;">Is ilan listenizin hepsini silmek icin tiklayin. </p>
+	    			<p style="float:left;"> Click the button to delete all your job posts </p>
 	    		
 					<button id="deleteBtn" type = "submit" class="btn-danger">Delete</button>
 					
@@ -47,7 +47,7 @@
 						<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" />
 						
-			    		<p style="float:left;">Is ilan listeleme sayfasi olusturmak icin tiklayin. </p>
+			    		<p style="float:left;">Click the button to create job listing </p>
 			    		
 			    		<button id="submitBtn" type = "submit" class="btn-primary">Create</button>
 			    	</form>
@@ -92,7 +92,7 @@
     	</c:otherwise>
     </c:choose>
     <br>
-    <a href="accesspoint/logout">Cikis</a>   
+    <a href="accesspoint/logout">Logout</a>   
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
@@ -114,7 +114,7 @@ $(document).ready(function(){
 		    },
 		   error: function() {
 		        //$("#commentList").append($("#name").val() + "<br/>" + $("#body").val());
-		       alert("There was an error submitting comment");
+		       alert("There is an error");
 		   }
 			
 		});
@@ -139,7 +139,7 @@ $(document).ready(function(){
 		    },
 		   error: function() {
 		        //$("#commentList").append($("#name").val() + "<br/>" + $("#body").val());
-		       alert("There was an error submitting comment");
+		       alert("There is an error");
 		   }
 			
 		});

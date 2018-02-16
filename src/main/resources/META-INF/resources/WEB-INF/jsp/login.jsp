@@ -26,7 +26,7 @@
       </div><!-- /.login-logo -->
       
       <div class="login-box-body ${error != null ? 'has-error' : ''}"">
-        <p class="login-box-msg">Giriş Ekranı</p>
+        <p class="login-box-msg">Login Page</p>
         <form action="<c:url value='/j_spring_security_check' />" method="post" name='loginForm' > 
           <div class="form-group has-feedback">
             <input type="text" class="form-control" placeholder="Username" name='username' id="username">
@@ -43,7 +43,7 @@
             <div class="col-xs-8">
             </div><!-- /.col -->
             <div class="col-xs-4">
-              <button type="submit" class="btn btn-primary btn-block btn-flat">Giriş</button>
+              <button type="submit" class="btn btn-primary btn-block btn-flat">Login</button>
             </div><!-- /.col -->
           </div>
           <input type="hidden" name="${_csrf.parameterName}"

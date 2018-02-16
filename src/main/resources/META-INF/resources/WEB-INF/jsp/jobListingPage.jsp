@@ -120,7 +120,7 @@ $(document).ready(function(){
 			    },
 			   error: function() {
 			        //$("#commentList").append($("#name").val() + "<br/>" + $("#body").val());
-			       alert("There was an error submitting comment");
+			       alert("There is an error");
 			   }
 				
 			});
@@ -145,7 +145,7 @@ $(document).ready(function(){
 		    },
 		   error: function() {
 		        //$("#commentList").append($("#name").val() + "<br/>" + $("#body").val());
-		       alert("There was an error submitting comment");
+		       alert("There is an error");
 		   }
 			
 		});

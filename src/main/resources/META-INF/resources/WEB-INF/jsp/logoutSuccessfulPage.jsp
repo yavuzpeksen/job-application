@@ -8,9 +8,9 @@
 </head>
 <body>
        
-      <h2>Cikis islemi basarili.</h2>
+      <h2>You are logged out</h2>
       <br>
-      Giris ekranina git. <a href="/accesspoint/login">Login</a>
+      Return to login page <a href="/accesspoint/login">Login</a>
         
 </body>
 </html>
