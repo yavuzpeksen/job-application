@@ -19,32 +19,25 @@ public class LoginController {
 	
   @RequestMapping(value = "/login", method = RequestMethod.GET)
   public String loginGetPage(Model model, String error, String logout, HttpServletRequest request) {
-		
-      if (error != null)
-          model.addAttribute("error", "Login unsuccessful");
 
-      return "login";
+  	if (error != null)
+  		model.addAttribute("error", "Login unsuccessful");
+
+    return "login";
   }
   
   @RequestMapping(value = "/unauthorized", method = RequestMethod.GET)
   public String accessDenied(Model model, Principal principal) {
 
-      if (principal != null) {
-          User loginedUser = (User) ((Authentication) principal).getPrincipal();
+    if (principal != null) {
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+        String username = loginedUser.getUsername();
+        model.addAttribute("username", username);
+    }
 
-          String username = loginedUser.getUsername();
-          model.addAttribute("username", username);
-      }
+    return "unauthorized";
+  }
 
-      return "unauthorized";
-  }
-  /*
-  @RequestMapping(value = "/logout", method = RequestMethod.GET)
-  public String logout(Model model, Principal principal) {
-  	
-      return "logoutSuccessfulPage";
-  }
-  */
   @RequestMapping(value="/logout", method = RequestMethod.GET)
   public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
       Authentication auth = SecurityContextHolder.getContext().getAuthentication();

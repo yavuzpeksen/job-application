@@ -14,31 +14,27 @@
     <c:choose>
     	<c:when test="${isAdmin}"> 
 	    	<c:choose>
-	    		<c:when test="${jobListingId > 0}">
-	    			
-	    		<form action="/getJobListing" method="POST">
-					<input type="hidden" name="id" value="<c:out value="${jobListingId}"/>" /> 
-					<input type="hidden" name="${_csrf.parameterName}"
-					value="${_csrf.token}" />
-	    		
-	    			<p style="float:left;">Click the button to the list page of your job posts </p> 
-					<input type = "submit" class="btn-primary" value = "List" />
-					
-				</form>
+	    		<c:when test="${jobListingId > 0}">	    			
+		    		<form action="/getJobListing" method="POST">
+						<input type="hidden" name="id" value="<c:out value="${jobListingId}"/>" /> 
+						<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" />
+		    		
+		    			<p style="float:left;">Click the button to the list page of your job posts </p> 
+						<input type = "submit" class="btn-primary" value = "List" />
+					</form>
 				<br>
 	    		<!--  <a href="/getJobListing?id=<c:out value="${jobListingId}"/>" >Git</a> -->
 
-	    		<form action="/deleteJobListing" method="POST">
-					<input type="hidden" name="id" value="<c:out value="${jobListingId}"/>" /> 
-					<input type="hidden" name="${_csrf.parameterName}"
-					value="${_csrf.token}" />
-					
-	    			<p style="float:left;"> Click the button to delete all your job posts </p>
-	    		
-					<button id="deleteBtn" type = "submit" class="btn-danger">Delete</button>
-					
-				</form>
-	    		<!--  <a href="/deleteJobListing">Sil</a> -->
+		    		<form action="/deleteJobListing" method="POST">
+						<input type="hidden" name="id" value="<c:out value="${jobListingId}"/>" /> 
+						<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" />
+						
+		    			<p style="float:left;"> Click the button to delete all your job posts </p>	    		
+						<button id="deleteBtn" type = "submit" class="btn-danger">Delete</button>	
+					</form>
+		    		<!--  <a href="/deleteJobListing">Sil</a> -->
 	    		
 	    		</c:when>
 	    		<c:otherwise>
@@ -48,27 +44,25 @@
 						value="${_csrf.token}" />
 						
 			    		<p style="float:left;">Click the button to create job listing </p>
-			    		
 			    		<button id="submitBtn" type = "submit" class="btn-primary">Create</button>
 			    	</form>
 		    	<!--  <a href="/createJobListing">Olustur.</a> -->
 		    	</c:otherwise>
 	    	</c:choose>
     	</c:when>
-    	
     	<c:otherwise>
     		<div class="container">
     		<h2>Job Post List</h2>
-    		  <c:choose>
+    		  	<c:choose>
 	  				<c:when test="${hasJob}">
 			    	  	<table class="table table-bordered">
 					    <thead>
 					      <tr>
-					        <th>Job Title</th>
-					        <th>Job Description</th>
-					        <th>Number of people</th>
-					        <th>Last Application Date</th>
-					        <th>Details</th>
+						        <th>Job Title</th>
+						        <th>Job Description</th>
+						        <th>Number of people</th>
+						        <th>Last Application Date</th>
+						        <th>Details</th>
 					      </tr>
 					    </thead>
 					    <tbody>
@@ -98,7 +92,6 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
-	
 	$("#submitBtn").click(function(){
 		event.preventDefault();
 		$.ajax({
@@ -113,13 +106,11 @@ $(document).ready(function(){
 		    	}
 		    },
 		   error: function() {
-		        //$("#commentList").append($("#name").val() + "<br/>" + $("#body").val());
 		       alert("There is an error");
 		   }
 			
 		});
 	});
-	
 	$("#deleteBtn").click(function(){
 		event.preventDefault();
 		var data = {
@@ -138,10 +129,8 @@ $(document).ready(function(){
 		    	}
 		    },
 		   error: function() {
-		        //$("#commentList").append($("#name").val() + "<br/>" + $("#body").val());
 		       alert("There is an error");
-		   }
-			
+		   }			
 		});
 	});
 

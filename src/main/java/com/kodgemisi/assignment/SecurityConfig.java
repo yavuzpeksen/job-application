@@ -26,12 +26,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
   protected void configure(HttpSecurity http) throws Exception {
   
   	http.authorizeRequests().antMatchers("/css/**", "/login", "/logout").permitAll();
-  	http.authorizeRequests().antMatchers("/homepage").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
-  	 
-    http.authorizeRequests().antMatchers("/admin").access("hasRole('ROLE_ADMIN')");
-    
-    http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/accesspoint/unauthorized");
-    
+  	http.authorizeRequests().antMatchers("/homepage").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");	 
+    http.authorizeRequests().antMatchers("/admin").access("hasRole('ROLE_ADMIN')");    
+    http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/accesspoint/unauthorized");    
     http.authorizeRequests().and().formLogin()
             .loginProcessingUrl("/j_spring_security_check")
             .loginPage("/accesspoint/login")

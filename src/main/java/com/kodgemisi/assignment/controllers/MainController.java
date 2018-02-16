@@ -13,8 +13,6 @@ import com.kodgemisi.assignment.interfaces.UserService;
 import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -36,16 +34,12 @@ public class MainController {
   public String homePage(Model model, Principal principal) {
        
       User loginedUser = (User) ((Authentication) principal).getPrincipal();
-      
       boolean isAdmin = loginedUser.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
       Long jobListingId = -1L;
       if(isAdmin){
       	JobListing jl = userService.getJobListingByEmail(loginedUser.getUsername());
-      	if(jl == null){
-      		System.out.println("Veri bulunamadi.");
-      	}else{
+      	if(jl != null){
       		jobListingId = jl.getId();
-      		//System.out.println("Is ilan olusturma sayfaniza gitmek icin tiklayin. JL:" +jl.getId());
       	}
       }else{	
       	List<Job> jobList = userService.getAllJobs();
@@ -55,12 +49,9 @@ public class MainController {
         		hasJob = true;
       		}
       	}
-      		
-      	//Butun job postlar getirilecek..
       	model.addAttribute("jobList", jobList);
       	model.addAttribute("hasJob", hasJob);
       }
-      
       String name = loginedUser.getUsername();
       model.addAttribute("username",name);
       model.addAttribute("isAdmin",isAdmin);
@@ -75,12 +66,8 @@ public class MainController {
   
   @RequestMapping(value = "/getJobListing", method = RequestMethod.POST)
   public String getJobListing(Model model, Principal principal, @RequestParam("id") int id) {
-       
-  	
-  	System.out.println("GetJobListing method cagrildi. id:" + id);
-    //User loginedUser = (User) ((Authentication) principal).getPrincipal();
+
   	Set<Job> jobSet = userService.getJobByJobListingId(Long.valueOf(id));
-  	
   	boolean hasJob = false;
   	if(jobSet != null ){
   		if(jobSet.size() != 0){
@@ -98,7 +85,6 @@ public class MainController {
   @ResponseBody
   public String deleteJobListing(Model model, Principal principal, @RequestParam("id") int id) {
        
-      //User loginedUser = (User) ((Authentication) principal).getPrincipal();
 		userService.deleteJobListing(id);
 		String result = "{\"status\":1}";
 		
@@ -109,13 +95,9 @@ public class MainController {
   @ResponseBody
   public String createJobListing(Model model, Principal principal) {
        
-    //User loginedUser = (User) ((Authentication) principal).getPrincipal();
-		//System.out.println("Getirilecek id:" + id);
-  	System.out.println("Job Listing yaratilacak.");
   	User loginedUser = (User) ((Authentication) principal).getPrincipal();
   	Long userId = userService.getUserIdByEmail(loginedUser.getUsername());
-  	userService.createJobListing(userId);
-  	
+  	userService.createJobListing(userId);  	
   	String result = "{\"status\":1}";
   	
   	return result;
@@ -128,14 +110,12 @@ public class MainController {
   	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
   	Date dateObj = null;  	
     String result = "{\"status\":1}";
-
 		try {
 			dateObj = format.parse(lastDate);
 		} catch (ParseException e) {
 			result = "{\"status\":0}";
 			return result;
 		}
-  	
   	userService.addJob(id, title, description, numOfPerson, dateObj);
           
     return result;
@@ -153,8 +133,9 @@ public class MainController {
   
   @RequestMapping(value = "/logoutSuccessful", method = RequestMethod.GET)
   public String logoutSuccessfulPage(Model model) {
-      model.addAttribute("title", "Logout");
-      return "logoutSuccessfulPage";
+     
+  	model.addAttribute("title", "Logout");
+    return "logoutSuccessfulPage";
   }
   
 }

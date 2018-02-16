@@ -71,7 +71,6 @@ public class User {
       return roles;
   }
   
-  //MappedBy yapiyoruz cunku bu field User class'inda sorumlu degil, JobListing class'indaki "user" field'ina bak diyoruz.
   @OneToOne(cascade = CascadeType.ALL, mappedBy="user")
   public JobListing getJobListing(){
   	return jobListing;

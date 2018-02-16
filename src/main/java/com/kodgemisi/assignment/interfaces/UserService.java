@@ -6,7 +6,6 @@ import java.util.Set;
 
 import com.kodgemisi.assignment.domains.Job;
 import com.kodgemisi.assignment.domains.JobListing;
-import com.kodgemisi.assignment.domains.User;
 
 public interface UserService {
 

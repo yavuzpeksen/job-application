@@ -17,7 +17,6 @@
     <link rel="stylesheet" href="${contextPath}/css/AdminLTE.min.css">
     <!-- iCheck -->
     <link rel="stylesheet" href="${contextPath}/css/blue.css">
-
   </head>
   <body class="login-page">
     <div class="login-box">

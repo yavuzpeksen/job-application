@@ -12,10 +12,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.kodgemisi.assignment.domains.JobListing;
 import com.kodgemisi.assignment.domains.Role;
 import com.kodgemisi.assignment.domains.User;
-import com.kodgemisi.assignment.repositories.JobListingRepository;
 import com.kodgemisi.assignment.repositories.UserRepository;
 
 @Service
@@ -27,19 +25,17 @@ public class UserDetailsServiceImpl implements UserDetailsService{
   @Override
   @Transactional(readOnly = true)
   public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-      User user = userRepository.findByEmail(email);
-      
-      if(user != null){
-        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        for (Role role : user.getRoles()){
-            grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
-        }
 
-        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), grantedAuthorities);
-      }else{
-      	throw new UsernameNotFoundException("User not found");
+  	User user = userRepository.findByEmail(email);  
+    if(user != null){
+      Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+      for (Role role : user.getRoles()){
+          grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
       }
-
+      return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), grantedAuthorities);
+    }else{
+    	throw new UsernameNotFoundException("User not found");
+    }
   }
 
 }
