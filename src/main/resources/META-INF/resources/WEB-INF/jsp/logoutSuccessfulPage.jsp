@@ -4,11 +4,17 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	
 	<title>Kod Gemisi</title>
 </head>
 <body>     
+	<div align="center" class="container">
       <h2>You are logged out</h2>
       <br>
-      Return to login page <a href="/accesspoint/login"> Login</a>        
+      <div style="width: 60%; margin:0 auto;">
+      <a style="height: 40px; width:100px; border:1px solid black; display:block; padding-top:10px;" href="/accesspoint/login"> Login</a> 
+      </div> 
+    </div>      
 </body>
 </html>

@@ -8,85 +8,124 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
-	    
-    <h2>Welcome to the homepage <c:out value = "${username}"/>, </h2>
-    <br><br>
-    <c:choose>
-    	<c:when test="${isAdmin}"> 
-	    	<c:choose>
-	    		<c:when test="${jobListingId > 0}">	    			
-		    		<form action="/getJobListing" method="POST">
-						<input type="hidden" name="id" value="<c:out value="${jobListingId}"/>" /> 
-						<input type="hidden" name="${_csrf.parameterName}"
-						value="${_csrf.token}" />
-		    		
-		    			<p style="float:left;">Click the button to the list page of your job posts </p> 
-						<input type = "submit" class="btn-primary" value = "List" />
-					</form>
-				<br>
-	    		<!--  <a href="/getJobListing?id=<c:out value="${jobListingId}"/>" >Git</a> -->
 
-		    		<form action="/deleteJobListing" method="POST">
-						<input type="hidden" name="id" value="<c:out value="${jobListingId}"/>" /> 
-						<input type="hidden" name="${_csrf.parameterName}"
-						value="${_csrf.token}" />
-						
-		    			<p style="float:left;"> Click the button to delete all your job posts </p>	    		
-						<button id="deleteBtn" type = "submit" class="btn-danger">Delete</button>	
-					</form>
-		    		<!--  <a href="/deleteJobListing">Sil</a> -->
-	    		
-	    		</c:when>
-	    		<c:otherwise>
-		    		<form id = "createJobListingForm">
-						<input type="hidden" name="id" value="<c:out value="${jobListingId}"/>" /> 
-						<input type="hidden" name="${_csrf.parameterName}"
-						value="${_csrf.token}" />
-						
-			    		<p style="float:left;">Click the button to create job listing </p>
-			    		<button id="submitBtn" type = "submit" class="btn-primary">Create</button>
-			    	</form>
-		    	<!--  <a href="/createJobListing">Olustur.</a> -->
-		    	</c:otherwise>
-	    	</c:choose>
-    	</c:when>
-    	<c:otherwise>
-    		<div class="container">
-    		<h2>Job Post List</h2>
-    		  	<c:choose>
-	  				<c:when test="${hasJob}">
-			    	  	<table class="table table-bordered">
-					    <thead>
-					      <tr>
-						        <th>Job Title</th>
-						        <th>Job Description</th>
-						        <th>Number of people</th>
-						        <th>Last Application Date</th>
-						        <th>Details</th>
-					      </tr>
-					    </thead>
-					    <tbody>
-					    	<c:forEach items="${jobList}" var="item" varStatus="st">
-						    	<tr>
-						    		<td>${item.title}</td>
-						    		<td>${item.description}</td>
-						    		<td>${item.hiringPersonNumber}</td>
-						    		<td><fmt:formatDate pattern="dd-MM-yyyy" value="${item.lastApplicationDate}" /></td>
-						    		<td><a href="/getJobDetailPage?postid=${item.id}">Link</a></td>
-						    	</tr>
-					    	</c:forEach>
-					    </tbody>
-					  </table>
-			  		</c:when>
-    		<c:otherwise>
-			    <h4> There is no job post.</h4>
-			</c:otherwise>
-			</c:choose>
-		  </div>
-    	</c:otherwise>
-    </c:choose>
-    <br>
-    <a href="accesspoint/logout">Logout</a>   
+	<div class="container">
+	    <h2 align="center" >Homepage</h2>
+	    <br>
+	    <div style="width: 60%; margin:0 auto;">
+		    <div style="height:40px;">
+		    	<a href="accesspoint/logout" style="float:right; height:20px; width:100px; border:1px solid black; text-align:center;">Logout</a>
+		    </div>
+		    <c:choose>
+			    <c:when test="${isAdmin}">
+			    	<p style="">Welcome <c:out value = "${username}"/>, you are logged in as HR Manager</p>
+			    </c:when>
+		    </c:choose> 
+		    <br>
+		    <c:choose>
+		    	<c:when test="${isAdmin}"> 
+			    	<c:choose>
+			    		<c:when test="${jobListingId > 0}">	
+			    		<table class="table table-bordered">
+							<tbody>
+							    
+							        			
+				    		<form action="/getJobListing" method="POST">
+								<input type="hidden" name="id" value="<c:out value="${jobListingId}"/>" /> 
+								<input type="hidden" name="${_csrf.parameterName}"
+								value="${_csrf.token}" />
+				    		
+				    			<tr>
+				    				<td>Click the button to the list page of your job posts</td>
+									<td align="center">
+										<input type = "submit" class="btn-primary" style="display:inline-block;"value = "List" />
+									</td>
+								</tr>
+							</form>
+			    		<!--  <a href="/getJobListing?id=<c:out value="${jobListingId}"/>" >Git</a> -->
+		
+				    		<form action="/deleteJobListing" method="POST">
+								<input type="hidden" name="id" value="<c:out value="${jobListingId}"/>" /> 
+								<input type="hidden" name="${_csrf.parameterName}"
+								value="${_csrf.token}" />
+								
+								<tr>
+									<td>Click the button to delete all your job posts</td>	    		
+						    		<td align="center">
+										<button id="deleteBtn" type = "submit" style="display:inline-block;" class="btn-danger">Delete</button>
+									</td>
+								</tr>
+							</form>
+							</tbody>
+						</table>
+				    		<!--  <a href="/deleteJobListing">Sil</a> -->
+			    		
+			    		</c:when>
+			    		<c:otherwise>
+				    		<form id = "createJobListingForm">
+								<input type="hidden" name="id" value="<c:out value="${jobListingId}"/>" /> 
+								<input type="hidden" name="${_csrf.parameterName}"
+								value="${_csrf.token}" />
+								
+								<div style="width:60%; display:inline-block;">
+									<div style="width:80%; margin:0 auto;">
+						    			<p style="float:left;">Click the button to create job listing </p>
+						    		</div>
+					    		</div>
+					    		<button id="submitBtn" type = "submit" class="btn-primary">Create</button>
+					    		
+					    	</form>
+				    	<!--  <a href="/createJobListing">Olustur.</a> -->
+				    	</c:otherwise>
+			    	</c:choose>
+		    	</c:when>
+		    </c:choose>
+	    </div>
+
+    </div>
+    <c:choose>
+    	<c:when test="${!isAdmin}">
+
+		    		<div class="container">
+		    		
+					    <c:choose>
+						    <c:when test="${!isAdmin}">
+						    	<p style="">Welcome <c:out value = "${username}"/>, you are logged in as Applicant candidate</p>
+						    </c:when>
+					    </c:choose>
+		    			<h2>Job Post List</h2>
+		    		  	<c:choose>
+			  				<c:when test="${hasJob}">
+					    	  	<table class="table table-bordered">
+							    <thead>
+							      <tr>
+								        <th>Job Title</th>
+								        <th>Job Description</th>
+								        <th>Number of people</th>
+								        <th>Last Application Date</th>
+								        <th>Details</th>
+							      </tr>
+							    </thead>
+							    <tbody>
+							    	<c:forEach items="${jobList}" var="item" varStatus="st">
+								    	<tr>
+								    		<td>${item.title}</td>
+								    		<td>${item.description}</td>
+								    		<td>${item.hiringPersonNumber}</td>
+								    		<td><fmt:formatDate pattern="dd-MM-yyyy" value="${item.lastApplicationDate}" /></td>
+								    		<td><a href="/getJobDetailPage?postid=${item.id}">Link</a></td>
+								    	</tr>
+							    	</c:forEach>
+							    </tbody>
+							  </table>
+					  		</c:when>
+		    		<c:otherwise>
+					    <h4> There is no job post.</h4>
+					</c:otherwise>
+					</c:choose>
+				  </div>
+				  </c:when>
+		    	</c:choose>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
