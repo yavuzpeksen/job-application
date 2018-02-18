@@ -19,8 +19,6 @@ public class User {
 	
 	private Set<Role> roles;
 	
-	private JobListing jobListing;
-
 	private String passwordConfirm;
 
 	@Id
@@ -71,15 +69,6 @@ public class User {
       return roles;
   }
   
-  @OneToOne(cascade = CascadeType.ALL, mappedBy="user")
-  public JobListing getJobListing(){
-  	return jobListing;
-  }
-  
-	public void setJobListing(JobListing jobListing) {
-		this.jobListing = jobListing;
-	}
-
   public void setRoles(Set<Role> roles) {
       this.roles = roles;
   }
