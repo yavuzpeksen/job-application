@@ -19,8 +19,6 @@ public class JobListing {
 	private long id;
 	
 	private User user;
-
-	private Set<Job> jobs;
 	
 	public void setId(Long id) {
 		this.id = id;
@@ -42,12 +40,4 @@ public class JobListing {
 		this.user = user;
 	}
 	
-	@OneToMany(mappedBy="jobListing", cascade=CascadeType.ALL)
-	public Set<Job> getJobs() {
-		return jobs;
-	}
-
-	public void setJobs(Set<Job> jobs) {
-		this.jobs = jobs;
-	}
 }
