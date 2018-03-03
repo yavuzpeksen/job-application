@@ -22,7 +22,7 @@ public class UserController {
 	
 
 
-	//@Service de hangi isim tanimlandiysa o isim kullanilmak zorunda "userService"
+	//@Service class'inda hangi isim tanimlandiysa o isim kullanilmak zorunda "userService"
   @Autowired
   private UserService userService;
   

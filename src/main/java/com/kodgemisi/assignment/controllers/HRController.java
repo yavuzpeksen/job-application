@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.ui.Model;
@@ -28,7 +27,7 @@ import org.springframework.ui.Model;
 @RequestMapping(value="/admin")
 public class HRController {
 	
-	//@Service de hangi isim tanimlandiysa o isim kullanilmak zorunda "hrService"
+	//@Service class'inda hangi isim tanimlandiysa o isim kullanilmak zorunda "hrService"
   @Autowired
   private HRService hrService;
   
