@@ -31,7 +31,7 @@
 							<tbody>
 							    
 							        			
-				    		<form action="/getJobListing" method="POST">
+				    		<form action="admin/getJobListing" method="POST">
 								<input type="hidden" name="id" value="<c:out value="${jobListingId}"/>" /> 
 								<input type="hidden" name="${_csrf.parameterName}"
 								value="${_csrf.token}" />
@@ -45,7 +45,7 @@
 							</form>
 			    		<!--  <a href="/getJobListing?id=<c:out value="${jobListingId}"/>" >Git</a> -->
 		
-				    		<form action="/deleteJobListing" method="POST">
+				    		<form action="admin/deleteJobListing" method="POST">
 								<input type="hidden" name="id" value="<c:out value="${jobListingId}"/>" /> 
 								<input type="hidden" name="${_csrf.parameterName}"
 								value="${_csrf.token}" />
@@ -136,7 +136,7 @@ $(document).ready(function(){
 		event.preventDefault();
 		$.ajax({
 		    type: "GET",
-		    url: "/createJobListing",
+		    url: "admin/createJobListing",
 		    data: $('#createJobListingForm').serialize(),
 		    dataType: "json",
 		    success: function(data) {
@@ -159,7 +159,7 @@ $(document).ready(function(){
 		}
 		$.ajax({
 		    type: "POST",
-		    url: "/deleteJobListing",
+		    url: "admin/deleteJobListing",
 		    data: data,
 		    dataType: "json",
 		    success: function(data) {

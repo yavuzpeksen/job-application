@@ -4,18 +4,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kodgemisi.assignment.domains.Job;
-import com.kodgemisi.assignment.domains.JobListing;
-import com.kodgemisi.assignment.interfaces.UserService;
+import com.kodgemisi.assignment.services.interfaces.UserService;
 
 import java.security.Principal;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -27,6 +21,8 @@ import org.springframework.ui.Model;
 public class MainController {
 	
 
+
+	//@Service de hangi isim tanimlandiysa o isim kullanilmak zorunda "userService"
   @Autowired
   private UserService userService;
   
@@ -35,12 +31,8 @@ public class MainController {
        
       User loginedUser = (User) ((Authentication) principal).getPrincipal();
       boolean isAdmin = loginedUser.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
-      Long jobListingId = -1L;
       if(isAdmin){
-      	JobListing jl = userService.getJobListingByEmail(loginedUser.getUsername());
-      	if(jl != null){
-      		jobListingId = jl.getId();
-      	}
+      	return "forward:/admin/homepage";
       }else{	
       	List<Job> jobList = userService.getAllJobs();
       	boolean hasJob = false;
@@ -55,87 +47,14 @@ public class MainController {
       String name = loginedUser.getUsername();
       model.addAttribute("username",name);
       model.addAttribute("isAdmin",isAdmin);
-      model.addAttribute("jobListingId",jobListingId);
+      
+      //model.addAttribute("jobListingId",jobListingId);
       return "homepage";
   }
   @RequestMapping(value = "/getJobDetailPage", method = RequestMethod.GET)
   public String getJobDetailPage(Model model, Principal principal, @RequestParam("postid") int id) {
        
     return "jobDetailPage";
-  }
-  
-  @RequestMapping(value = "/getJobListing", method = RequestMethod.POST)
-  public String getJobListing(Model model, Principal principal, @RequestParam("id") int id) {
-
-  	Set<Job> jobSet = userService.getJobByJobListingId(Long.valueOf(id));
-  	boolean hasJob = false;
-  	if(jobSet != null ){
-  		if(jobSet.size() != 0){
-    		hasJob = true;
-  		}
-  	}
-    model.addAttribute("jobSet", jobSet);
-    model.addAttribute("hasJob", hasJob);
-    model.addAttribute("jobListingId",id);
-       
-    return "jobListingPage";
-  }
-  
-  @RequestMapping(value = "/deleteJobListing", method = RequestMethod.POST)
-  @ResponseBody
-  public String deleteJobListing(Model model, Principal principal, @RequestParam("id") int id) {
-       
-		userService.deleteJobListing(id);
-		String result = "{\"status\":1}";
-		
-		return result;
-  }
-  
-  @RequestMapping(value = "/createJobListing", method = RequestMethod.GET)
-  @ResponseBody
-  public String createJobListing(Model model, Principal principal) {
-       
-  	User loginedUser = (User) ((Authentication) principal).getPrincipal();
-  	Long userId = userService.getUserIdByEmail(loginedUser.getUsername());
-  	userService.createJobListing(userId);  	
-  	String result = "{\"status\":1}";
-  	
-  	return result;
-  }
-  
-  @RequestMapping(value = "/createJobPost", method = RequestMethod.POST)
-  @ResponseBody
-  public String createJobPost(Model model, Principal principal, @RequestParam("title") String title, @RequestParam("description") String description, @RequestParam("numOfPerson") int numOfPerson, @RequestParam("lastDate") String lastDate, @RequestParam("id") int id) {
-       
-  	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-  	Date dateObj = null;  	
-    String result = "{\"status\":1}";
-		try {
-			dateObj = format.parse(lastDate);
-		} catch (ParseException e) {
-			result = "{\"status\":0}";
-			return result;
-		}
-  	userService.addJob(id, title, description, numOfPerson, dateObj);
-          
-    return result;
-  }
-  
-  @RequestMapping(value = "/deleteJobPost", method = RequestMethod.POST)
-  @ResponseBody
-  public String deleteJobPost(Model model, Principal principal, @RequestParam("postid") int postId) {
-       
-    String result = "{\"status\":1}";
-  	userService.deleteJob(postId);
-  	
-    return result;
-  }
-  
-  @RequestMapping(value = "/logoutSuccessful", method = RequestMethod.GET)
-  public String logoutSuccessfulPage(Model model) {
-     
-  	model.addAttribute("title", "Logout");
-    return "logoutSuccessfulPage";
   }
   
 }
