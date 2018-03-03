@@ -1,4 +1,4 @@
-package com.kodgemisi.assignment;
+package com.kodgemisi.assignment.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
