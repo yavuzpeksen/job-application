@@ -118,7 +118,7 @@ public class HRController {
 			result = "{\"status\":0}";
 			return result;
 		}
-		hrService.addJob(id, title, description, numOfPerson, dateObj);
+		hrService.createJobPost(id, title, description, numOfPerson, dateObj);
           
     return result;
   }

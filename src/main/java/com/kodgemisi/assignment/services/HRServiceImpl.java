@@ -45,7 +45,7 @@ public class HRServiceImpl implements HRService {
   }
 
 	@Override
-	public void addJob(int id, String title, String description, int numOfPerson, Date lastDate) {
+	public void createJobPost(int id, String title, String description, int numOfPerson, Date lastDate) {
 		
 		Job currentJob = new Job();
 		JobListing currJobListing = new JobListing();

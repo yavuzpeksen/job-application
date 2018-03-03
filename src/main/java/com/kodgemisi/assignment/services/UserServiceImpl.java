@@ -16,18 +16,12 @@ import com.kodgemisi.assignment.services.interfaces.UserService;
 @Service("userService")
 public class UserServiceImpl implements UserService {
 
-  @Autowired
-  private JobListingRepository jlRepository;
   
   @Autowired
   private JobRepository jobRepository;
   
   @Autowired
   private UserRepository userRepository;
-
-	public UserServiceImpl(JobListingRepository jlRepository) {
-		this.jlRepository = jlRepository;
-	}
 	
 	@Override
 	public List<Job> getAllJobs() {
