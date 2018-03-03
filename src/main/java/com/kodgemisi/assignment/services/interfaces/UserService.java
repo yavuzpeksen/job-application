@@ -12,5 +12,7 @@ public interface UserService {
 	public Long getUserIdByEmail(String email);
 			
 	public List<Job> getAllJobs();
+	
+	public Job getJobById(long id);
 
 }

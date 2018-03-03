@@ -18,10 +18,10 @@ public class UserServiceImpl implements UserService {
 
   
   @Autowired
-  private JobRepository jobRepository;
+  protected JobRepository jobRepository;
   
   @Autowired
-  private UserRepository userRepository;
+  protected UserRepository userRepository;
 	
 	@Override
 	public List<Job> getAllJobs() {
@@ -33,6 +33,12 @@ public class UserServiceImpl implements UserService {
 	public Long getUserIdByEmail(String email) {
 		User user = userRepository.findByEmail(email);
 		return user.getId();
+	}
+	
+	@Override
+	public Job getJobById(long id){
+		Job job = jobRepository.findOne(id);
+		return job;
 	}
 
 }

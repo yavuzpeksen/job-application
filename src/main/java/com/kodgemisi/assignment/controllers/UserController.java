@@ -51,9 +51,11 @@ public class UserController {
       //model.addAttribute("jobListingId",jobListingId);
       return "homepage";
   }
-  @RequestMapping(value = "/getJobDetailPage", method = RequestMethod.GET)
+  @RequestMapping(value = "/getJobApplyPage", method = RequestMethod.GET)
   public String getJobDetailPage(Model model, Principal principal, @RequestParam("postid") int id) {
        
+  	//First get the detail of job post
+  	userService.getJobById(id);
     return "jobDetailPage";
   }
   

@@ -17,16 +17,10 @@ import com.kodgemisi.assignment.services.interfaces.HRService;
 import com.kodgemisi.assignment.services.interfaces.UserService;
 
 @Service("hrService")
-public class HRServiceImpl implements HRService {
+public class HRServiceImpl extends UserServiceImpl implements HRService {
 
   @Autowired
   private JobListingRepository jlRepository;
-  
-  @Autowired
-  private JobRepository jobRepository;
-  
-  @Autowired
-  private UserRepository userRepository;
 
 	public HRServiceImpl(JobListingRepository jlRepository) {
 		this.jlRepository = jlRepository;
@@ -67,12 +61,6 @@ public class HRServiceImpl implements HRService {
 	}
 
 	@Override
-	public List<Job> getAllJobs() {
-		List<Job> jobSet = jobRepository.findAll();
-		return jobSet;
-	}
-
-	@Override
 	public void createJobListing(Long id) {
 		
 		JobListing jobListing = new JobListing();
@@ -86,12 +74,6 @@ public class HRServiceImpl implements HRService {
 	@Override
 	public void deleteJobListing(int id) {
 		jobRepository.deleteJobsByJobListingId(Long.valueOf(id));
-	}
-
-	@Override
-	public Long getUserIdByEmail(String email) {
-		User user = userRepository.findByEmail(email);
-		return user.getId();
 	}
 
 }
