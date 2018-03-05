@@ -36,6 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
             .failureUrl("/accesspoint/login?error=true")
             .usernameParameter("username")
             .passwordParameter("password")
+            .and().rememberMe().key("uniqueAndSecret").rememberMeParameter("remember-me").rememberMeCookieName("springboot-remember-me").tokenValiditySeconds(1 * 60 * 60)
             .and().logout().logoutUrl("/accesspoint/logout").logoutSuccessUrl("/logoutSuccessful");
   }
   

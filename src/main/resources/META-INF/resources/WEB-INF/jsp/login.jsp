@@ -39,7 +39,13 @@
           	<c:out value = "${error}"/>
           </div>
           <div class="row">
+          
             <div class="col-xs-8">
+	            <div class="checkbox">
+	                <label>
+	                  <input type="checkbox" name="remember-me">Remember me
+	                </label>
+	              </div>
             </div><!-- /.col -->
             <div class="col-xs-4">
               <button type="submit" class="btn btn-primary btn-block btn-flat">Login</button>
