@@ -20,8 +20,6 @@ import org.springframework.ui.Model;
 @Controller
 public class UserController {
 	
-
-
 	//@Service class'inda hangi isim tanimlandiysa o isim kullanilmak zorunda "userService"
   @Autowired
   private UserService userService;
@@ -55,7 +53,8 @@ public class UserController {
   public String getJobDetailPage(Model model, Principal principal, @RequestParam("postid") int id) {
        
   	//First get the detail of job post
-  	userService.getJobById(id);
+  	Job job = userService.getJobById(id);
+  	model.addAttribute("job", job);
     return "jobDetailPage";
   }
   
