@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.kodgemisi.assignment.services.TestBean;
 import com.kodgemisi.assignment.services.interfaces.SecurityService;
 import com.kodgemisi.assignment.services.interfaces.UserService;
 
@@ -33,9 +34,13 @@ public class LoginController {
   @Autowired
   private SecurityService securityService;
   
+  @Autowired
+  private TestBean beanA;
+  
   @RequestMapping(value = "/login", method = RequestMethod.GET)
   public String loginGetPage(Model model, String error, String logout, HttpServletRequest request) {
 
+  	beanA.doNothing();
   	if (error != null)
   		model.addAttribute("error", "Login unsuccessful");
 
@@ -79,12 +84,9 @@ public class LoginController {
       }*/
   	
   	userForm.setCreationDate(new Timestamp(new Date().getTime()));
-
-      userService.save(userForm);
-
-      securityService.autoLogin(userForm.getEmail(), userForm.getPasswordConfirm());
-      
-
+  	userService.save(userForm);
+  	securityService.autoLogin(userForm.getEmail(), userForm.getPasswordConfirm());
+   
       return "redirect:/homepage";
   }
 

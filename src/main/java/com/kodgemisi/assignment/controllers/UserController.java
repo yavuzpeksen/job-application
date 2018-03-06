@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kodgemisi.assignment.domains.Job;
+import com.kodgemisi.assignment.services.TestBean;
 import com.kodgemisi.assignment.services.interfaces.UserService;
 
 import java.security.Principal;
@@ -23,6 +24,9 @@ public class UserController {
 	//@Service class'inda hangi isim tanimlandiysa o isim kullanilmak zorunda "userService"
   @Autowired
   private UserService userService;
+  
+  @Autowired
+  private TestBean beanA;
   
   @RequestMapping(value = "/homepage", method = RequestMethod.GET)
   public String homePage(Model model, Principal principal) {
@@ -42,6 +46,7 @@ public class UserController {
       	model.addAttribute("jobList", jobList);
       	model.addAttribute("hasJob", hasJob);
       }
+      beanA.doNothing();
       String name = loginedUser.getUsername();
       model.addAttribute("username",name);
       model.addAttribute("isAdmin",isAdmin);
