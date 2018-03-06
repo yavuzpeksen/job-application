@@ -5,14 +5,10 @@ import java.util.List;
 import com.kodgemisi.assignment.domains.Job;
 import com.kodgemisi.assignment.domains.User;
 
-public interface UserService {
-		
-	public Long getUserIdByEmail(String email);
-			
-	public List<Job> getAllJobs();
+public interface SecurityService {
 	
-	public Job getJobById(long id);
+	String findLoggedInUsername();
 	
-	public void save(User user);
+	void autoLogin(String username, String password);
 
 }
