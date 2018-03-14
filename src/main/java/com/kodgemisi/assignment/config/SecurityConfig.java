@@ -34,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
   @Override
   protected void configure(HttpSecurity http) throws Exception {
   
-  	http.authorizeRequests().antMatchers("/css/**", "/login", "/logout", "/accesspoint/register").permitAll();
+  	http.authorizeRequests().antMatchers("/css/**", "/img/**", "/login", "/logout", "/accesspoint/register").permitAll();
   	http.authorizeRequests().antMatchers("/homepage").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");	 
     http.authorizeRequests().antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')");    
     http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/accesspoint/unauthorized");    

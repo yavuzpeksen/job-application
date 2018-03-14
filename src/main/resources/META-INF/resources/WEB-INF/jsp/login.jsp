@@ -24,7 +24,7 @@
         <a href="../../index2.html"><b>Job Application</a>
       </div><!-- /.login-logo -->
       
-      <div class="login-box-body ${error != null ? 'has-error' : ''}"">
+      <div class="login-box-body ${error != null ? 'has-error' : ''}">
         <p class="login-box-msg">Login Page</p>
         <form action="<c:url value='/j_spring_security_check' />" method="post" name='loginForm' > 
           <div class="form-group has-feedback">
@@ -66,6 +66,15 @@
         
       </div><!-- /.login-box-body -->
     </div><!-- /.login-box -->
+    <div class="alternative-body" style="margin:1% auto; width:360px;" align="center">
+	    <div style="background-color:white; padding:10px;">
+	    
+	    <button style="background-color: #4267b2; border-color:#4267b2; border-radius:2px; color:white; width:250px;" class="btn btn-primary">
+	    	<img src="${contextPath}/img/logo/fb.png" style="height:20px;  float:left;">
+	    	Continue with Facebook
+	    </button>
+	    </div>
+    </div>
 
     <!-- jQuery 3.2 -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
