@@ -64,17 +64,26 @@
 				value="${_csrf.token}" />
         </form>
         
+		    <div>
+		    <p style="border-top:1px solid #ccc; margin:22px 0; position:relative;">
+		    	<span style="margin:0 auto; position:absolute; text-align:center; background-color:#fff; width:60px; display:block; left:0; right:0; top:-12px;">OR</span>
+		    </p>
+		    
+		    <button style="background-color: #4267b2; border-color:#4267b2; border-radius:2px; color:white; width:250px; display:block; margin:0 auto;" class="btn btn-primary">
+		    	<img src="${contextPath}/img/logo/fb.png" style="height:20px;  float:left;">
+		    	Continue with Facebook
+		    </button>
+		    </div>
+		    <p style="display:block; margin:40px 0 -10px;">
+		    New user? 
+		    <a href="">Create an account</a>
+		    </p>
+		    <!-- javascript:void(0);
+		    Already have an account? Sign in -->
+		    
       </div><!-- /.login-box-body -->
+      
     </div><!-- /.login-box -->
-    <div class="alternative-body" style="margin:1% auto; width:360px;" align="center">
-	    <div style="background-color:white; padding:10px;">
-	    
-	    <button style="background-color: #4267b2; border-color:#4267b2; border-radius:2px; color:white; width:250px;" class="btn btn-primary">
-	    	<img src="${contextPath}/img/logo/fb.png" style="height:20px;  float:left;">
-	    	Continue with Facebook
-	    </button>
-	    </div>
-    </div>
 
     <!-- jQuery 3.2 -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
