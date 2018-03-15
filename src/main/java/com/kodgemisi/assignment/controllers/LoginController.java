@@ -39,9 +39,6 @@ public class LoginController {
   private SecurityService securityService;
   
   @Autowired
-  private ConnectionRepository connectionRepository;
-  
-  @Autowired
   private TestBean beanA;
   
   @RequestMapping(value = "/login", method = RequestMethod.GET)
