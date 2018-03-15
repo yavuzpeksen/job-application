@@ -1,18 +1,14 @@
 package com.kodgemisi.assignment.controllers;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionRepository;
-import org.springframework.social.connect.UserProfile;
 import org.springframework.social.twitter.api.Twitter;
-import org.springframework.social.twitter.api.impl.TwitterTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.client.RestTemplate;
 
 @Controller
 @RequestMapping(value="twitter")
@@ -43,7 +39,7 @@ public class TwitterController {
 		
 	}
 	
-	private String extractEmailFromResponse(String response){
+	/*private String extractEmailFromResponse(String response){
     JSONObject jsonObject= null;
     String email =null;
     try {
@@ -53,5 +49,5 @@ public class TwitterController {
         e.printStackTrace();
     }
     return email;
-}
+	}*/
 }
