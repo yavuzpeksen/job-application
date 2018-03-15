@@ -69,10 +69,16 @@
 		    	<span style="margin:0 auto; position:absolute; text-align:center; background-color:#fff; width:60px; display:block; left:0; right:0; top:-12px;">OR</span>
 		    </p>
 		    
-		    <button style="background-color: #4267b2; border-color:#4267b2; border-radius:2px; color:white; width:250px; display:block; margin:0 auto;" class="btn btn-primary">
-		    	<img src="${contextPath}/img/logo/fb.png" style="height:20px;  float:left;">
-		    	Continue with Facebook
-		    </button>
+		    <form action="/connect/facebook" method="POST">
+				<input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}" />
+				<input type="hidden" name="scope" value="user_posts" />
+				<button type="submit" style="background-color: #4267b2; border-color:#4267b2; border-radius:2px; color:white; width:250px; display:block; margin:0 auto;" class="btn btn-primary">
+			    	<img src="${contextPath}/img/logo/fb.png" style="height:20px;  float:left;">
+			    	Continue with Facebook
+			    </button>
+			</form>
+
 		    </div>
 		    <p style="display:block; margin:40px 0 -10px;">
 		    New user? 
