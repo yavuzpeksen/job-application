@@ -86,9 +86,9 @@
 		    <form action="/connect/twitter" method="POST">
 				<input type="hidden" name="${_csrf.parameterName}"
 					value="${_csrf.token}" />
-				<input type="hidden" name="scope" value="user_posts" />
-				<button type="submit" style="background-color: #4267b2; border-color:#4267b2; border-radius:2px; color:white; width:250px; display:block; margin:10px auto 0;" class="btn btn-primary">
-			    	<img src="${contextPath}/img/logo/fb.png" style="height:20px;  float:left;">
+				<input type="hidden" name="scope" value="user_posts,email,public_profile" />
+				<button type="submit" style="background-color: #1da1f2; border-color:#1da1f2; border-radius:2px; color:white; width:250px; display:block; margin:10px auto 0;" class="btn btn-primary">
+			    	<img src="" style="height:20px;  float:left;">
 			    	Continue with Twitter
 			    </button>
 			</form>
