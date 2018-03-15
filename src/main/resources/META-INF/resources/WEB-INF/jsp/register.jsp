@@ -65,6 +65,10 @@
           </div>
         </form:form>
         
+        <p style="display:block; margin:20px 0 -10px;">
+		    Already have an account?  
+		    <a href="../accesspoint/login">Login</a>
+		 </p>
       </div><!-- /.login-box-body -->
     </div><!-- /.login-box -->
 

@@ -80,9 +80,23 @@
 			</form>
 
 		    </div>
+		    
+		    <div>
+		    
+		    <form action="/connect/twitter" method="POST">
+				<input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}" />
+				<input type="hidden" name="scope" value="user_posts" />
+				<button type="submit" style="background-color: #4267b2; border-color:#4267b2; border-radius:2px; color:white; width:250px; display:block; margin:10px auto 0;" class="btn btn-primary">
+			    	<img src="${contextPath}/img/logo/fb.png" style="height:20px;  float:left;">
+			    	Continue with Twitter
+			    </button>
+			</form>
+
+		    </div>
 		    <p style="display:block; margin:40px 0 -10px;">
 		    New user? 
-		    <a href="">Create an account</a>
+		    <a href="../accesspoint/register">Create an account</a>
 		    </p>
 		    <!-- javascript:void(0);
 		    Already have an account? Sign in -->
