@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.social.config.annotation.EnableSocial;
 
 import com.kodgemisi.assignment.services.TestBean;
 
@@ -34,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
   @Override
   protected void configure(HttpSecurity http) throws Exception {
   
-  	http.authorizeRequests().antMatchers("/css/**", "/img/**", "/login", "/logout", "/accesspoint/register").permitAll();
+  	http.authorizeRequests().antMatchers("/css/**", "/img/**", "/login", "/logout", "/accesspoint/register", "/connect/**").permitAll();
   	http.authorizeRequests().antMatchers("/homepage").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");	 
     http.authorizeRequests().antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')");    
     http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/accesspoint/unauthorized");    

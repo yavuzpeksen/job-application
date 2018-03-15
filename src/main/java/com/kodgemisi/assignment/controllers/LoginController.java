@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,6 +24,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.social.connect.Connection;
+import org.springframework.social.connect.ConnectionRepository;
+import org.springframework.social.twitter.api.Twitter;
 
 @Controller
 @RequestMapping(value="/accesspoint")
@@ -33,6 +37,9 @@ public class LoginController {
   
   @Autowired
   private SecurityService securityService;
+  
+  @Autowired
+  private ConnectionRepository connectionRepository;
   
   @Autowired
   private TestBean beanA;
@@ -89,5 +96,18 @@ public class LoginController {
    
       return "redirect:/homepage";
   }
+  
+  /*@RequestMapping(value = "/facebook", method = RequestMethod.GET)
+  public String loginFacebook(Model model) {
+
+  	Connection<Facebook> connection = connectionRepository.findPrimaryConnection(Facebook.class);
+  	if(connection == null){
+  		return "redirect:/connect/facebook";
+  	}
+  	org.springframework.social.facebook.api.User u = facebook.userOperations().getUserProfile();
+  	String email = connection.fetchUserProfile().getEmail();
+  	//connection.getApi().feedOperations().
+    return "homepage";
+  }*/
 
 }
