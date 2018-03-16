@@ -53,15 +53,15 @@
               <button type="submit" class="btn btn-primary btn-block btn-flat">Login</button>
             </div><!-- /.col -->
           </div>
-          <div class="row">
+          <!--<div class="row">
             <div class="col-xs-8" style="top:15px;">
             <a href="../accesspoint/forgot-password" style="text-decoration:underline; font-weight:400; color:#666;">Forgot Password</a>
-            </div><!-- /.col -->
+            </div>
             <div class="col-xs-4">
               <button type="button" onclick="location.href='../accesspoint/register';"class="btn btn-danger btn-block btn-flat">Register</button>
-            </div><!-- /.col -->
+            </div>
           	
-          </div>
+          </div> -->
           <input type="hidden" name="${_csrf.parameterName}"
 				value="${_csrf.token}" />
         </form>
