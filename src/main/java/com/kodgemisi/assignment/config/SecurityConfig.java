@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.social.config.annotation.EnableSocial;
 
+import com.kodgemisi.assignment.components.RandomStringGenerator;
 import com.kodgemisi.assignment.services.TestBean;
 
 @Configuration
@@ -30,6 +31,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
   @Scope(value="prototype")
   public TestBean testBean(){
   	return new TestBean();
+  }
+  
+  @Bean
+  @Scope(value="prototype")
+  public RandomStringGenerator randomStringGenerator(){
+  	return new RandomStringGenerator();
   }
   
   @Override
