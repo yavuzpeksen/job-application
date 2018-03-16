@@ -88,10 +88,14 @@
 					value="${_csrf.token}" />
 				<input type="hidden" name="scope" value="user_posts,email,public_profile" />
 				<button type="submit" style="background-color: #1da1f2; border-color:#1da1f2; border-radius:2px; color:white; width:250px; display:block; margin:10px auto 0;" class="btn btn-primary">
-			    	<img src="" style="height:20px;  float:left;">
+			    	<i class="fa fa-twitter" style="border-right:none; float:left; font-size:1.8em;"></i>
 			    	Continue with Twitter
 			    </button>
 			</form>
+			
+			<br>
+			<!-- <a href="#" class="btn btn-block btn-social btn-twitter"><i class="fa fa-twitter" style="border-right:none"></i> Sign in using
+        Facebook</a> -->
 
 		    </div>
 		    <p style="display:block; margin:40px 0 -10px;">
