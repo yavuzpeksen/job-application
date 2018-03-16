@@ -9,14 +9,16 @@
     <title>Kod Gemisi</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    
     <!-- Bootstrap 3.3.4 -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="${contextPath}/css/AdminLTE.min.css">
-    <!-- iCheck -->
+    <!-- iCheck 
     <link rel="stylesheet" href="${contextPath}/css/blue.css">
+    -->
   </head>
   <body class="login-page">
     <div class="login-box">
@@ -74,7 +76,10 @@
 					value="${_csrf.token}" />
 				<input type="hidden" name="scope" value="user_posts" />
 				<button type="submit" style="background-color: #4267b2; border-color:#4267b2; border-radius:2px; color:white; width:250px; display:block; margin:0 auto;" class="btn btn-primary">
-			    	<img src="${contextPath}/img/logo/fb.png" style="height:20px;  float:left;">
+			    	<!-- 
+					<img src="${contextPath}/img/logo/fb.png" style="height:20px;  float:left;">
+			    	 -->
+			    	<i class="fa fa-facebook" style="border-right:none; float:left; font-size:1.8em;"></i>
 			    	Continue with Facebook
 			    </button>
 			</form>
@@ -114,6 +119,6 @@
     <!-- Bootstrap 3.3.4 -->
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	    
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/icheck.min.js"></script>
+    <!--  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/icheck.min.js"></script> -->
   </body>
 </html>
