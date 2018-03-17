@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.kodgemisi.assignment.components.RandomStringGenerator;
+import com.kodgemisi.assignment.domains.form.RegisterForm;
 import com.kodgemisi.assignment.services.interfaces.SecurityService;
 import com.kodgemisi.assignment.services.interfaces.UserService;
 
@@ -49,12 +50,13 @@ public class FacebookController {
     com.kodgemisi.assignment.domains.User currentUser = userService.getUserByEmail(facebookUser.getEmail());
     String currentPassword = null;
     if(currentUser == null){
-    	
-    	com.kodgemisi.assignment.domains.User user = new com.kodgemisi.assignment.domains.User();
-    	user.setCreationDate(new Timestamp(new Date().getTime()));
+    	    	
+    	RegisterForm registerForm = new RegisterForm();
     	
     	currentPassword = passwordGenerator.generateRandomString(8);
-    	userService.save(user);
+    	registerForm.setEmail(facebookUser.getEmail());
+    	registerForm.setPassword(currentPassword);
+    	userService.save(registerForm);
     }else{
     	currentPassword = currentUser.getPassword();
     }

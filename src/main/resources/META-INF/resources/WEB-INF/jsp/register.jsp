@@ -28,19 +28,20 @@
       
       <div class="login-box-body ${error != null ? 'has-error' : ''}"">
         <p class="login-box-msg">Registration Page</p>
-        <form:form  method="POST" modelAttribute="userForm" class="form-signin"> 
+        <form:form  method="POST" modelAttribute="userForm" class="form-signin needs-validation was-validated"> 
         <spring:bind path="email">
             <div class="form-group has-feedback ${status.error ? 'has-error' : ''}">
                 <form:input type="text" path="email" class="form-control" placeholder="Email"
-                            autofocus="true"></form:input>
+                            autofocus="true" required="required" formnovalidate="true"></form:input>
                  <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                 <form:errors path="email"></form:errors>
             </div>
+            
         </spring:bind>
         
         <spring:bind path="password">
             <div class="form-group has-feedback ${status.error ? 'has-error' : ''}">
-                <form:input type="password" path="password" class="form-control" placeholder="Password"></form:input>
+                <form:input type="password" path="password" class="form-control" placeholder="Password" required="required"></form:input>
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 <form:errors path="password"></form:errors>
             </div>
@@ -48,7 +49,7 @@
         <spring:bind path="passwordConfirm">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <form:input type="password" path="passwordConfirm" class="form-control"
-                            placeholder="Confirm your password"></form:input>
+                            placeholder="Confirm your password" required="required"></form:input>
                 <form:errors path="passwordConfirm"></form:errors>
             </div>
         </spring:bind>

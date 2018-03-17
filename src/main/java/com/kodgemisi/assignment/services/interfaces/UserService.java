@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.kodgemisi.assignment.domains.Job;
 import com.kodgemisi.assignment.domains.User;
+import com.kodgemisi.assignment.domains.form.RegisterForm;
 
 public interface UserService {
 		
@@ -13,7 +14,7 @@ public interface UserService {
 	
 	public Job getJobById(long id);
 	
-	public void save(User user);
+	public void save(RegisterForm registerForm);
 	
 	public User getUserByEmail(String email);
 

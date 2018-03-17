@@ -19,7 +19,7 @@
 		    </div>
 		    <c:choose>
 			    <c:when test="${isAdmin}">
-			    	<p style="">Welcome <c:out value = "${username}"/>, you are logged in as HR Manager</p>
+			    	<p style="">Welcome <c:out value = "${username}"/>, you are logged in as HR Manager. <c:out value="${pageMessage}"></c:out></p>
 			    </c:when>
 		    </c:choose> 
 		    <br>

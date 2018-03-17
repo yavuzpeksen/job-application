@@ -1,6 +1,7 @@
 package com.kodgemisi.assignment.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -130,6 +131,11 @@ public class HRController {
     hrService.deleteJob(postId);
   	
     return result;
+  }
+  
+  @ModelAttribute("pageMessage")
+  public String getPageMessage(){
+  	return "This is an admin page.";
   }
   
 }

@@ -2,6 +2,7 @@ package com.kodgemisi.assignment.controllers;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.kodgemisi.assignment.components.RegisterValidator;
+import com.kodgemisi.assignment.domains.form.RegisterForm;
 import com.kodgemisi.assignment.services.TestBean;
 import com.kodgemisi.assignment.services.interfaces.SecurityService;
 import com.kodgemisi.assignment.services.interfaces.UserService;
@@ -37,6 +40,9 @@ public class LoginController {
   
   @Autowired
   private SecurityService securityService;
+  
+  @Autowired
+  private RegisterValidator registerFormValidator;
   
   @Autowired
   private TestBean beanA;
@@ -80,18 +86,18 @@ public class LoginController {
   }
   
   @RequestMapping(value = "/register", method = RequestMethod.POST)
-  public String registration(@ModelAttribute("userForm") com.kodgemisi.assignment.domains.User userForm, BindingResult bindingResult, Model model) {
-      /*userValidator.validate(userForm, bindingResult);
+  public String registration(@ModelAttribute("userForm") RegisterForm registerForm, BindingResult bindingResult, Model model) {
+  		registerFormValidator.validate(registerForm, bindingResult);
 
       if (bindingResult.hasErrors()) {
-          return "registration";
-      }*/
+      	return "register";
+          
+      }
   	
-  	userForm.setCreationDate(new Timestamp(new Date().getTime()));
-  	userService.save(userForm);
-  	securityService.autoLogin(userForm.getEmail(), userForm.getPasswordConfirm());
+  	userService.save(registerForm);
+  	securityService.autoLogin(registerForm.getEmail(), registerForm.getPasswordConfirm());
    
-      return "redirect:/homepage";
+  	return "redirect:/homepage";
   }
   
   /*@RequestMapping(value = "/facebook", method = RequestMethod.GET)
