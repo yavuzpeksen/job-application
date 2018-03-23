@@ -30,11 +30,11 @@
         <p class="login-box-msg">Login Page</p>
         <form action="<c:url value='/j_spring_security_check' />" method="post" name='loginForm' > 
           <div class="form-group has-feedback">
-            <input type="text" class="form-control" placeholder="Username" name='username' id="username">
+            <input type="text" class="form-control" placeholder="Username" name='username' id="username" required="required" formnovalidate="true">
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
           </div>
           <div class="form-group has-feedback">
-            <input type="password" class="form-control" placeholder="Password" id="password" name='password'>
+            <input type="password" class="form-control" placeholder="Password" id="password" name='password' required="required" formnovalidate="true">
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
           </div>
           <div>

@@ -7,13 +7,13 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import com.kodgemisi.assignment.domains.form.RegisterForm;
+import com.kodgemisi.assignment.services.interfaces.UserService;
 
 @Component
 public class RegisterValidator implements Validator{
 
-	/*
   @Autowired
-  private UserService userService;*/
+  private UserService userService;
 
   @Override
   public boolean supports(Class<?> aClass) {
@@ -28,11 +28,12 @@ public class RegisterValidator implements Validator{
       if (registerForm.getEmail().length() < 6 || registerForm.getEmail().length() > 16) {
           errors.rejectValue("email", "Size.userForm.email");
       }
-      /*
-      if (userService.findByUsername(user.getUsername()) != null) {
-          errors.rejectValue("username", "Duplicate.userForm.username");
-      }*/
-		
+      
+      com.kodgemisi.assignment.domains.User fetchedUser = userService.getUserByEmail(registerForm.getEmail());
+      if(fetchedUser != null){
+      	errors.rejectValue("email", "Duplicate.userForm.email");
+      }
+
       ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
       if (registerForm.getPassword().length() < 8 || registerForm.getPassword().length() > 32) {
           errors.rejectValue("password", "Size.userForm.password");
@@ -42,4 +43,5 @@ public class RegisterValidator implements Validator{
           errors.rejectValue("passwordConfirm", "Diff.userForm.passwordConfirm");
       }
   }
+  
 }

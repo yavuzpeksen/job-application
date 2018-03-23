@@ -65,6 +65,8 @@ public class LoginController {
         String username = loginedUser.getUsername();
         model.addAttribute("username", username);
     }
+    
+    
 
     return "unauthorized";
   }
@@ -87,13 +89,12 @@ public class LoginController {
   
   @RequestMapping(value = "/register", method = RequestMethod.POST)
   public String registration(@ModelAttribute("userForm") RegisterForm registerForm, BindingResult bindingResult, Model model) {
-  		registerFormValidator.validate(registerForm, bindingResult);
-
-      if (bindingResult.hasErrors()) {
-      	return "register";
-          
-      }
-  	
+		registerFormValidator.validate(registerForm, bindingResult);    
+    if (bindingResult.hasErrors()) {
+    	return "register";
+        
+    }
+    
   	userService.save(registerForm);
   	securityService.autoLogin(registerForm.getEmail(), registerForm.getPasswordConfirm());
    
