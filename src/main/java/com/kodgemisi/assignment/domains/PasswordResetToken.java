@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.ForeignKey;
 
 @Entity(name="password_reset_token")
 @Table(name="password_reset_token")
@@ -53,7 +54,7 @@ public class PasswordResetToken {
 	}
 
 	@OneToOne
-	@JoinColumn(name="user_id")
+	@JoinColumn(name="user_id", foreignKey= @ForeignKey(name="prt_user_id_fk"))
 	public Test getUser() {
 		return user;
 	}
