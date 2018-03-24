@@ -19,6 +19,8 @@ public class User {
 	
 	private Set<Role> roles;
 	
+	private boolean authenticated;
+	
 	private String passwordConfirm;
 
 	@Id
@@ -72,4 +74,12 @@ public class User {
   public void setRoles(Set<Role> roles) {
       this.roles = roles;
   }
+
+	public boolean isAuthenticated() {
+		return authenticated;
+	}
+
+	public void setAuthenticated(boolean authenticated) {
+		this.authenticated = authenticated;
+	}
 }

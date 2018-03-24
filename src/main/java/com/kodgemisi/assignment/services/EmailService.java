@@ -21,12 +21,13 @@ public class EmailService {
 	@Async
 	public void sendConfirmationEmail(HttpServletRequest request,String emailAddress, String token){
 		
-		String appUrl = request.getScheme() + "://" + request.getServerName();
+		String appUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
 		
 		SimpleMailMessage email = new SimpleMailMessage();
 		email.setTo(emailAddress);
 		email.setSubject("Registration Confirmation");
-		email.setText("To confirm your email address, please click the link below:\n" + appUrl + "/confirm?token=" + token);
+		email.setText("To confirm your email address, please click the link below:\n" + appUrl + "/accesspoint/confirm?token=" + token);
+		email.setFrom("noreply@domain.com");
 		
 		mailSender.send(email);
 	}

@@ -19,6 +19,11 @@
     <!-- iCheck 
     <link rel="stylesheet" href="${contextPath}/css/blue.css">
     -->
+    <style type="text/css">
+    .has-error {
+		color: red
+	}
+    </style>
   </head>
   <body class="login-page">
     <div class="login-box">
@@ -28,6 +33,18 @@
       
       <div class="login-box-body ${error != null ? 'has-error' : ''}">
         <p class="login-box-msg">Login Page</p>
+        <c:if test="${confirmationStatus != null}">
+        	<div class="alert alert-success" align="center">
+        	<c:choose>
+        		<c:when test="${confirmationStatus == true}">
+        			Your account is activated, you can log in now
+        		</c:when>
+        		<c:otherwise>
+        			Given token is not recognized in our system
+        		</c:otherwise>
+        	</c:choose>
+        	</div>
+        </c:if>
         <form action="<c:url value='/j_spring_security_check' />" method="post" name='loginForm' > 
           <div class="form-group has-feedback">
             <input type="text" class="form-control" placeholder="Username" name='username' id="username" required="required" formnovalidate="true">
@@ -67,7 +84,7 @@
         </form>
         
 		    <div>
-		    <p style="border-top:1px solid #ccc; margin:22px 0; position:relative;">
+		    <p style="border-top:1px solid #ccc; margin:22px 0; position:relative; color:#666;">
 		    	<span style="margin:0 auto; position:absolute; text-align:center; background-color:#fff; width:60px; display:block; left:0; right:0; top:-12px;">OR</span>
 		    </p>
 		    
@@ -103,7 +120,7 @@
         Facebook</a> -->
 
 		    </div>
-		    <p style="display:block; margin:40px 0 -10px;">
+		    <p style="display:block; margin:40px 0 -10px; color:#666;">
 		    New user? 
 		    <a href="../accesspoint/register">Create an account</a>
 		    </p>

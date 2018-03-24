@@ -65,6 +65,7 @@ public class UserServiceImpl implements UserService {
 		user.setEmail(registerForm.getEmail());
 		user.setPassword(bCryptPasswordEncoder.encode(registerForm.getPassword()));
     user.setRoles(new HashSet<>(roleList));
+    user.setAuthenticated(false);
     userRepository.save(user);
 		
 	}
@@ -72,8 +73,14 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User getUserByEmail(String email) {
 		
-		return userRepository.findByEmail(email);
+		return userRepository.findByEmail(email);	
+	}
+
+	@Override
+	public void confirmUser(User user) {
 		
+		user.setAuthenticated(true);
+		userRepository.save(user);
 	}
 
 }

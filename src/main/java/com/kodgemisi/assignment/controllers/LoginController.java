@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kodgemisi.assignment.components.RegisterValidator;
+import com.kodgemisi.assignment.domains.ConfirmationToken;
 import com.kodgemisi.assignment.domains.form.RegisterForm;
 import com.kodgemisi.assignment.services.EmailService;
 import com.kodgemisi.assignment.services.TestBean;
@@ -102,17 +104,29 @@ public class LoginController {
     	return "register";
         
     }
-    
+
   	userService.save(registerForm);
   	com.kodgemisi.assignment.domains.User user = userService.getUserByEmail(registerForm.getEmail());
-  	String token = confirmationService.save(user);
+    String token = confirmationService.save(user);
   	emailService.sendConfirmationEmail(request, registerForm.getEmail(), token);
   	model.addAttribute("confirmationMessage", "Confirmation e-mail has been sent to " + user.getEmail());
   	//securityService.autoLogin(registerForm.getEmail(), registerForm.getPasswordConfirm());
    
   	return "register";
   }
-  
+  @RequestMapping(value = "/confirm", method = RequestMethod.GET)
+  public String showConfirmStatus(Model model, HttpServletRequest request, @RequestParam("token") String token){
+  	
+  	ConfirmationToken ct = confirmationService.findByToken(token);
+  	boolean status = false;
+  	if(ct != null){
+  		userService.confirmUser(ct.getUser());
+  		status = true;
+  	}
+  	
+  	model.addAttribute("confirmationStatus", status);
+  	return "login";
+  }
   /*@RequestMapping(value = "/facebook", method = RequestMethod.GET)
   public String loginFacebook(Model model) {
 

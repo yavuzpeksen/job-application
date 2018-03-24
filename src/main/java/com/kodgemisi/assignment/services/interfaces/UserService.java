@@ -17,5 +17,7 @@ public interface UserService {
 	public void save(RegisterForm registerForm);
 	
 	public User getUserByEmail(String email);
+		
+	public void confirmUser(User user);
 
 }
