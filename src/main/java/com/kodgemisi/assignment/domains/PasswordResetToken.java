@@ -12,7 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-@Entity
+@Entity(name="password_reset_token")
+@Table(name="password_reset_token")
 public class PasswordResetToken {
 
 	private static final int EXPIRATION = 60 * 24;

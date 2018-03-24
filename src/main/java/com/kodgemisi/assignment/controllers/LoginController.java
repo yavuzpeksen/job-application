@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.kodgemisi.assignment.components.RegisterValidator;
 import com.kodgemisi.assignment.domains.form.RegisterForm;
+import com.kodgemisi.assignment.services.EmailService;
 import com.kodgemisi.assignment.services.TestBean;
+import com.kodgemisi.assignment.services.interfaces.ConfirmationService;
 import com.kodgemisi.assignment.services.interfaces.SecurityService;
 import com.kodgemisi.assignment.services.interfaces.UserService;
 
@@ -43,6 +45,12 @@ public class LoginController {
   
   @Autowired
   private RegisterValidator registerFormValidator;
+  
+  @Autowired
+  private ConfirmationService confirmationService;
+  
+  @Autowired
+  private EmailService emailService;
   
   @Autowired
   private TestBean beanA;
@@ -88,7 +96,7 @@ public class LoginController {
   }
   
   @RequestMapping(value = "/register", method = RequestMethod.POST)
-  public String registration(@ModelAttribute("userForm") RegisterForm registerForm, BindingResult bindingResult, Model model) {
+  public String registration(@ModelAttribute("userForm") RegisterForm registerForm, BindingResult bindingResult, Model model, HttpServletRequest request) {
 		registerFormValidator.validate(registerForm, bindingResult);    
     if (bindingResult.hasErrors()) {
     	return "register";
@@ -96,9 +104,13 @@ public class LoginController {
     }
     
   	userService.save(registerForm);
-  	securityService.autoLogin(registerForm.getEmail(), registerForm.getPasswordConfirm());
+  	com.kodgemisi.assignment.domains.User user = userService.getUserByEmail(registerForm.getEmail());
+  	String token = confirmationService.save(user);
+  	emailService.sendConfirmationEmail(request, registerForm.getEmail(), token);
+  	model.addAttribute("confirmationMessage", "Confirmation e-mail has been sent to " + user.getEmail());
+  	//securityService.autoLogin(registerForm.getEmail(), registerForm.getPasswordConfirm());
    
-  	return "redirect:/homepage";
+  	return "register";
   }
   
   /*@RequestMapping(value = "/facebook", method = RequestMethod.GET)

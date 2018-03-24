@@ -28,6 +28,11 @@
       
       <div class="login-box-body ${error != null ? 'has-error' : ''}"">
         <p class="login-box-msg">Registration Page</p>
+        <c:if test="${confirmationMessage != null}">
+        	<div class="alert alert-success" align="center"><c:out value="${confirmationMessage}"></c:out>
+        	</div>
+        </c:if>
+        
         <form:form  method="POST" modelAttribute="userForm" class="form-signin needs-validation was-validated"> 
         <spring:bind path="email">
             <div class="form-group has-feedback ${status.error ? 'has-error' : ''}">

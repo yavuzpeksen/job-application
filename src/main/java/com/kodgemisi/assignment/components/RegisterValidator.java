@@ -25,7 +25,7 @@ public class RegisterValidator implements Validator{
       RegisterForm registerForm = (RegisterForm) o;
 
       ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "NotEmpty");
-      if (registerForm.getEmail().length() < 6 || registerForm.getEmail().length() > 16) {
+      if (registerForm.getEmail().length() < 6 || registerForm.getEmail().length() > 40) {
           errors.rejectValue("email", "Size.userForm.email");
       }
       
@@ -35,7 +35,7 @@ public class RegisterValidator implements Validator{
       }
 
       ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
-      if (registerForm.getPassword().length() < 8 || registerForm.getPassword().length() > 32) {
+      if (registerForm.getPassword().length() < 8 || registerForm.getPassword().length() > 16) {
           errors.rejectValue("password", "Size.userForm.password");
       }
 
