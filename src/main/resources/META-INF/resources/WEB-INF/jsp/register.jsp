@@ -29,7 +29,7 @@
       <div class="login-box-body ${error != null ? 'has-error' : ''}"">
         <p class="login-box-msg">Registration Page</p>
         <c:if test="${confirmationMessage != null}">
-        	<div class="alert alert-success" align="center"><c:out value="${confirmationMessage}"></c:out>
+        	<div class="alert ${isEmailSent == true ? 'alert-success' : 'alert-danger'}" align="center"><c:out value="${confirmationMessage}"></c:out>
         	</div>
         </c:if>
         

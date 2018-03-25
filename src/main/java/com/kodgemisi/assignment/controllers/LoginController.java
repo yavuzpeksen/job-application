@@ -108,10 +108,13 @@ public class LoginController {
   	userService.save(registerForm);
   	com.kodgemisi.assignment.domains.User user = userService.getUserByEmail(registerForm.getEmail());
     String token = confirmationService.save(user);
-  	emailService.sendConfirmationEmail(request, registerForm.getEmail(), token);
-  	model.addAttribute("confirmationMessage", "Confirmation e-mail has been sent to " + user.getEmail());
-  	//securityService.autoLogin(registerForm.getEmail(), registerForm.getPasswordConfirm());
-   
+  	boolean isEmailSent = emailService.sendConfirmationEmail(request, registerForm.getEmail(), token);
+  	String cMessage = "Confirmation e-mail has been sent to " + user.getEmail();
+  	if(!isEmailSent){
+  		cMessage = "Server internal error, try again later";
+  	}
+  	model.addAttribute("isEmailSent", isEmailSent);
+  	model.addAttribute("confirmationMessage", cMessage);   
   	return "register";
   }
   @RequestMapping(value = "/confirm", method = RequestMethod.GET)

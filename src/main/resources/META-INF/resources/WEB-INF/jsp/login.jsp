@@ -34,7 +34,7 @@
       <div class="login-box-body ${error != null ? 'has-error' : ''}">
         <p class="login-box-msg">Login Page</p>
         <c:if test="${confirmationStatus != null}">
-        	<div class="alert alert-success" align="center">
+        	<div id="confirmation" class="alert alert-success" align="center">
         	<c:choose>
         		<c:when test="${confirmationStatus == true}">
         			Your account is activated, you can log in now
@@ -135,6 +135,24 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- Bootstrap 3.3.4 -->
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	
+	<script type="text/javascript">
+    
+    $( document ).ready(function() {
+    	
+    	$("input").focus(function(){
+    		if($('#confirmation').css('display') == 'block'){
+    			$("#confirmation").css('opacity', 0)
+      		  	.slideUp('slow')
+      		  	.animate(
+      		    	{ opacity: 1 },
+      		    	{ queue: false, duration: 'slow' }
+      		);	
+    		}
+    		    		
+    	});
+    });
+    </script>
 	    
     <!--  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/icheck.min.js"></script> -->
   </body>
