@@ -8,4 +8,6 @@ public interface ConfirmationService {
 	String save(User user);
 	
 	ConfirmationToken findByToken(String token);
+	
+	void deleteConfirmationToken(ConfirmationToken confirmationToken);
 }

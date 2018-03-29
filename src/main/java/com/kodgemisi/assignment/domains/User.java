@@ -22,6 +22,8 @@ public class User {
 	private boolean authenticated;
 	
 	private String passwordConfirm;
+	
+	private PasswordResetToken passwordResetToken;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -81,5 +83,14 @@ public class User {
 
 	public void setAuthenticated(boolean authenticated) {
 		this.authenticated = authenticated;
+	}
+
+	@OneToOne(mappedBy="user")
+	public PasswordResetToken getPasswordResetToken() {
+		return passwordResetToken;
+	}
+
+	public void setPasswordResetToken(PasswordResetToken passwordResetToken) {
+		this.passwordResetToken = passwordResetToken;
 	}
 }

@@ -19,5 +19,9 @@ public interface UserService {
 	public User getUserByEmail(String email);
 		
 	public void confirmUser(User user);
-
+	
+	public void changePassword(User user, String password);
+	
+	public User findUserByPasswordResetToken(String token);
+	
 }

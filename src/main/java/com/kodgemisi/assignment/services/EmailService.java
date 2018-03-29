@@ -34,7 +34,27 @@ public class EmailService {
 		try {
 			mailSender.send(email);
 		} catch (MailException e) {
-			System.out.println("Authentication Error");
+			System.out.println("Gmail Authentication Error");
+			status = false;
+		}
+		return status;
+	}
+	
+	@Async
+	public boolean sendResetPasswordEmail(HttpServletRequest request,String emailAddress, String token){
+		String appUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+		
+		boolean status = true;		
+		SimpleMailMessage email = new SimpleMailMessage();
+		email.setTo(emailAddress);
+		email.setSubject("Reset Password");
+		email.setText("To reset your password, please click the link below:\n" + appUrl + "/accesspoint/resetPassword?token=" + token);
+		email.setFrom("noreply@domain.com");
+		
+		try {
+			mailSender.send(email);
+		} catch (MailException e) {
+			System.out.println("Gmail Authentication Error");
 			status = false;
 		}
 		return status;

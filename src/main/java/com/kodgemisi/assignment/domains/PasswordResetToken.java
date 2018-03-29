@@ -23,7 +23,7 @@ public class PasswordResetToken {
 	
 	private String token;
 	
-	private Test user;
+	private User user;
 	
 	@Column(name="expiration_date")
 	private Date expirationDate;
@@ -55,11 +55,11 @@ public class PasswordResetToken {
 
 	@OneToOne
 	@JoinColumn(name="user_id", foreignKey= @ForeignKey(name="prt_user_id_fk"))
-	public Test getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(Test user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 

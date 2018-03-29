@@ -151,6 +151,7 @@
     		}
     		    		
     	});
+    	$('div').each(function(){});
     });
     </script>
 	    

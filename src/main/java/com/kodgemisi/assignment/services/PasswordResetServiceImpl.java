@@ -6,37 +6,35 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kodgemisi.assignment.domains.ConfirmationToken;
+import com.kodgemisi.assignment.domains.PasswordResetToken;
 import com.kodgemisi.assignment.domains.User;
 import com.kodgemisi.assignment.repositories.ConfirmationTokenRepository;
+import com.kodgemisi.assignment.repositories.PasswordResetTokenRepository;
 import com.kodgemisi.assignment.services.interfaces.ConfirmationService;
+import com.kodgemisi.assignment.services.interfaces.PasswordResetService;
 
 @Service
-public class ConfirmationServiceImpl implements ConfirmationService{
-
+public class PasswordResetServiceImpl implements PasswordResetService{
+	
 	@Autowired
-	private ConfirmationTokenRepository confirmationTokenRepository;
+	private PasswordResetTokenRepository prtRepository;
 
 	@Override
 	public String save(User user) {
 		
-		ConfirmationToken cToken = new ConfirmationToken();
+		PasswordResetToken prt = new PasswordResetToken();
 		String token = UUID.randomUUID().toString().replaceAll("-", "");
-		cToken.setToken(token);
-		cToken.setUser(user);		
-		confirmationTokenRepository.save(cToken);
+		prt.setToken(token);
+		prt.setUser(user);
+		prtRepository.save(prt);
 		return token;
+				
 	}
 
 	@Override
-	public ConfirmationToken findByToken(String token) {
-
-		return confirmationTokenRepository.findByToken(token);
-	}
-
-	@Override
-	public void deleteConfirmationToken(ConfirmationToken confirmationToken) {
+	public PasswordResetToken findByToken(String token) {
 		
-		confirmationTokenRepository.delete(confirmationToken);
+		return prtRepository.findByToken(token);
 	}
 	
 }

@@ -14,11 +14,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kodgemisi.assignment.components.RegisterValidator;
+import com.kodgemisi.assignment.components.ResetPasswordValidator;
 import com.kodgemisi.assignment.domains.ConfirmationToken;
+import com.kodgemisi.assignment.domains.PasswordResetToken;
 import com.kodgemisi.assignment.domains.form.RegisterForm;
+import com.kodgemisi.assignment.domains.form.ResetPasswordForm;
 import com.kodgemisi.assignment.services.EmailService;
 import com.kodgemisi.assignment.services.TestBean;
 import com.kodgemisi.assignment.services.interfaces.ConfirmationService;
+import com.kodgemisi.assignment.services.interfaces.PasswordResetService;
 import com.kodgemisi.assignment.services.interfaces.SecurityService;
 import com.kodgemisi.assignment.services.interfaces.UserService;
 
@@ -49,10 +53,17 @@ public class LoginController {
   private RegisterValidator registerFormValidator;
   
   @Autowired
+  private ResetPasswordValidator resetPasswordValidator;
+  
+  @Autowired
   private ConfirmationService confirmationService;
   
   @Autowired
+  private PasswordResetService resetService;
+  
+  @Autowired
   private EmailService emailService;
+  
   
   @Autowired
   private TestBean beanA;
@@ -125,11 +136,84 @@ public class LoginController {
   	if(ct != null){
   		userService.confirmUser(ct.getUser());
   		status = true;
+  		confirmationService.deleteConfirmationToken(ct);
   	}
-  	
+
   	model.addAttribute("confirmationStatus", status);
   	return "login";
   }
+  
+  @RequestMapping(value = "/forgot-password", method = RequestMethod.GET)
+  public String getForgotPasswordPage(Model model, HttpServletRequest request){
+  	
+  	return "forgotPassword";
+  }
+  
+  @RequestMapping(value = "/forgot-password", method = RequestMethod.POST)
+  public String sendPasswordResetToken(Model model, HttpServletRequest request, @ModelAttribute("email") String email){
+  	
+  	com.kodgemisi.assignment.domains.User user = userService.getUserByEmail(email);
+  	boolean status = false;
+  	if(user != null){
+  		status = true;
+  		String token = resetService.save(user);
+  		boolean isEmailSent = emailService.sendResetPasswordEmail(request, email, token);
+    	String cMessage = "Reset e-mail has been sent to " + email;
+  		if(!isEmailSent){
+    		cMessage = "Server internal error, try again later";
+    	}
+  		model.addAttribute("resetMessage", cMessage);
+  		model.addAttribute("isEmailSent", isEmailSent);
+  	}
+  	model.addAttribute("resetEmailControl", status);
+  	
+  	return "forgotPassword";
+  }
+  
+  //Map objesine token-kullanici id atilabilir.
+  @RequestMapping(value = "/resetPassword", method = RequestMethod.GET)
+  public String checkResetToken(Model model, HttpServletRequest request, @RequestParam("token") String token){
+  	
+  	PasswordResetToken prt = resetService.findByToken(token);
+  	boolean status = false;
+  	if(prt != null){
+  		//userService.confirmUser(ct.getUser());
+  		status = true;
+  		//confirmationService.deleteConfirmationToken(ct);
+  	}
+  	ResetPasswordForm resetPasswordForm = new ResetPasswordForm();
+  	resetPasswordForm.setToken(token);
+  	model.addAttribute("isFormAllowed", status);
+  	model.addAttribute("resetForm", resetPasswordForm);
+  	return "resetPassword";
+  }
+  
+  @RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
+  public String resetPassword(@ModelAttribute("resetForm") ResetPasswordForm resetForm, BindingResult bindingResult, Model model, HttpServletRequest request) {
+		resetPasswordValidator.validate(resetForm, bindingResult);    
+    if (bindingResult.hasErrors()) {
+    	return "resetPassword";
+        
+    }
+    
+    PasswordResetToken prt = resetService.findByToken(resetForm.getToken());
+    boolean status = false;
+    String resetResultMessage = "Given token is not valid";
+  	if(prt != null){
+  		//com.kodgemisi.assignment.domains.User user = resetService.findUserByToken(resetForm.getToken());
+  		com.kodgemisi.assignment.domains.User user = userService.findUserByPasswordResetToken(resetForm.getToken());
+  		userService.changePassword(user, resetForm.getPassword());
+  		status = true;
+  		resetResultMessage = "Your password has been successfully changed";
+  		//confirmationService.deleteConfirmationToken(ct);
+  	}
+
+  	model.addAttribute("resetStatus", status);
+  	model.addAttribute("resetResultMessage", resetResultMessage);
+  
+  	return "resetPassword";
+  }
+  
   /*@RequestMapping(value = "/facebook", method = RequestMethod.GET)
   public String loginFacebook(Model model) {
 
