@@ -93,8 +93,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User findUserByPasswordResetToken(String token) {
 		
+		//User user = userRepository.findByJOIN(token);
+		//User user = userRepository.findBySubQuery(token);
+		//return user;
 		return userRepository.findByPasswordResetToken(token);
-		//return null;
+		
 	}
 
 }

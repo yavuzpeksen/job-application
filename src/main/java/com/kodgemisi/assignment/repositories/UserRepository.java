@@ -20,4 +20,11 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	@Query("SELECT u FROM USER u, password_reset_token prt WHERE u.id = prt.user.id AND prt.token = ?1")
 	User findByPasswordResetToken(String token);
 	
+	/*This an alternative method to findByPasswordResetToken, both finds the same result, Check SQL logging for queries*/
+	@Query("SELECT u FROM USER u JOIN u.passwordResetToken prt ON prt.token = ?1")
+	User findByJOIN(String token);
+	
+	/*This an alternative method to findByPasswordResetToken, both finds the same result, Check SQL logging for queries*/
+	@Query("SELECT u FROM USER u WHERE u.id IN (SELECT prt.user.id FROM password_reset_token prt WHERE prt.token = ?1)")
+	User findBySubQuery(String token);
 }
