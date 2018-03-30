@@ -1,0 +1,8 @@
+To generate the jar:
+
+
+To run the specified profile in pom.xml:
+mvn -P test-then-run
+
+To run the project:
+mvn clean spring-boot:run
